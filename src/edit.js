@@ -4,8 +4,8 @@
  * @see https://developer.wordpress.org/block-editor/packages/packages-components/
  */
 import { TextControl,
-	__experimentalVStack as VStack,
-	} from '@wordpress/components';
+        __experimentalVStack as VStack,
+        } from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -28,49 +28,50 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
-	const blockProps = useBlockProps();
-	if (!attributes.cards) {
-	    attributes.cards = [
-                {place: 1, type: "image", path: "https://croquet.io/webshowcase/siteCompanyLogo.jpg"},
-                {place: 2, type: "pdf", path: "https://croquet.io/webshowcase/site/CompanyDeck.pdf"},
-            ];
-            console.log(attributes);
-	    setAttributes(attributes);
-	};
-	const updateCards = (item) => {
-		const index = attributes.cards.findIndex((a) => a.place === item.place);
-		const newCards = [...attributes.cards];
-		if (index >= 0) {
-			newCards[index] = item;
-		} else {
-			newCards.push(item);
-		}
-		return newCards;
-	};
+    const blockProps = useBlockProps();
+    console.log("attributes", attributes);
+    if (!attributes.cardsString) {
+        let cardsString = JSON.stringify([
+            {place: 1, type: "image", path: "https://croquet.io/webshowcase/siteCompanyLogo.jpg"},
+            {place: 2, type: "pdf", path: "https://croquet.io/webshowcase/site/CompanyDeck.pdf"},
+        ]);
+        setAttributes({cardsString});
+    };
 
-	const set = (item) => {
-		let newCards = updateCards(item);
-		const newAttrs = {...attributes};
-	    newAttrs.cards = newCards;
-            console.log(attributes);
+    const updateCards = (item, cardsArray) => {
+        const index = cardsArray.findIndex((a) => a.place === item.place);
+        const newCards = [...cardsArray];
+        if (index >= 0) {
+            newCards[index] = item;
+        } else {
+            newCards.push(item);
+        }
+        return newCards;
+    };
 
-		setAttributes(newAttrs);
-	}
+    const set = (item) => {
+        let cardsArray = JSON.parse(attributes.cardsString);
+        let newCards = updateCards(item, cardsArray);
+        setAttributes({cardsString: JSON.stringify(newCards)});
+    }
 
-    
+    const get = (index) => {
+        let cardsArray = JSON.parse(attributes.cardsString);
+        return cardsArray[index];
+    };
 
     return (
-		<div { ...blockProps }>
-			<VStack>
-            	<TextControl
-	   				value={attributes.cards[0].path}
-	    			onChange={ ( val ) => set( { place: 1, path: val } )}
-				/>
-				<TextControl
-	    			value={attributes.cards[1].path}
-					onChange={ ( val ) => set( { place: 2, path: val } ) }
-				/>
-			</VStack>
-		</div>
-	);
+        <div { ...blockProps }>
+            <VStack>
+                <TextControl
+                    value={get(0).path}
+                    onChange={ ( val ) => set( { place: 1, path: val } )}
+                />
+                <TextControl
+                    value={get(1).path}
+                    onChange={ ( val ) => set( { place: 2, path: val } ) }
+                />
+            </VStack>
+        </div>
+    );
 }

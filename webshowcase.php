@@ -12,8 +12,6 @@
  */
 
 function webshowcase_dynamic_init() {
-    // automatically load dependencies and version
-do_action('qm/debug', "that happened");
     require_once(ABSPATH . 'wp-admin/includes/media.php');
     require_once(ABSPATH . 'wp-admin/includes/file.php');
     require_once(ABSPATH . 'wp-admin/includes/image.php');
@@ -25,12 +23,36 @@ do_action('qm/debug', "that happened");
 
 add_action( 'init', 'webshowcase_dynamic_init');
 
-function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
+function get_attachment_by_name($html_name) {
+   $args = array(
+            'posts_per_page' => 1,
+            'post_type'      => 'attachment',
+            'name'           => trim( $html_name ),
+         );
 
-do_action('qm/debug', $block_attributes);
-	$filename = 'showcase.html';
-	$tmp_filename = get_temp_dir() . 'showcase.html.tmp';
-	$contents = <<<SHOWCASE
+         $get_attachment = new WP_Query( $args );
+
+         if (! $get_attachment || ! isset( $get_attachment->posts, $get_attachment->posts[0])) {
+             return false;
+         }
+
+         return $get_attachment->posts[0];
+}
+
+function delete_if__exists($contents, $html_name) {
+   $prev = get_attachment_by_name($html_name);
+         do_action('qm/debug', $prev );
+   if ($prev) {
+       $id = $prev->ID;
+       wp_delete_attachment($id, true);
+       do_action('qm/debug', $id);
+   }
+}
+
+function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
+  $filename = 'showcase.html';
+  $tmp_filename = get_temp_dir() . 'showcase.html.tmp';
+  $contents1 = <<<SHOWCASE
 <!DOCTYPE html>
 <html>
   <head><meta charset="utf-8"></head>
@@ -39,20 +61,13 @@ do_action('qm/debug', $block_attributes);
       import {load} from "https://croquet.io/test/webshowcase/v1.js";
       load({
         title: "My Web Showcase", 
-        showcase: "gallery", 
-        cards: [
-          // each item in cards array has a 'place' to specify the location in the art gallery
-          // 'type' is either "image", "pdf", or "video"
-          // 'path' specifies the location of the asset, either as full URL or as path relative to this html file
-          {place: 1, type: "image", path: "./parkspda.png"},
-          {place: 2, type: "image", path: "./viewpoints.png"},
-          {place: 3, type: "image", path: "./wave.png"},
-          {place: 4, type: "image", path: "./croquet.png"},
-          {place: 5, type: "video", path: "./first-teatime.mov", muted: true,
-           videoWidth: 1532, videoHeight: 1080
-          },
-          {place: 6, type: "pdf", path: "./main.pdf"},
-        ],
+        showcase: "gallery",
+
+SHOWCASE;
+
+  $contents2 = '        cards: ' . $block_attributes['cardsString'] . ",\n";
+
+  $contents3 = <<<SHOWCASE
         voiceChat: true,
         appId: "io.croquet.yoshiki.webshowcase",
         apiKey: "1oC9rKnKr4kkttz5HqJ4mDycjupJA5eiF2CMhdvIf",
@@ -60,35 +75,38 @@ do_action('qm/debug', $block_attributes);
     </script>
   </body>
 </html>
+
 SHOWCASE;
 
-	$file = fopen($tmp_filename, 'w');
+  delete_if__exists(null, $filename);
 
-	if (!$file) {
-	    echo "Error creating a temporary file";
-	    return;
+  $file = fopen($tmp_filename, 'w');
+
+  if (!$file) {
+      echo "Error creating a temporary file";
+      return;
         }
-	$count = fwrite($file, $contents);
-	if (!$count) {
-	    echo "Error writing into a temporary file";
-	    return;
+  $count = fwrite($file, $contents1 . $contents2 . $contents3);
+  if (!$count) {
+      echo "Error writing into a temporary file";
+      return;
         }
-	fclose($file);
+  fclose($file);
 
-	$file_array = array();
-	$file_array['name'] = 'showcase.html';
-	$file_array['tmp_name'] = $tmp_filename;
+  $file_array = array();
+  $file_array['name'] = 'showcase.html';
+  $file_array['tmp_name'] = $tmp_filename;
 
-	$post = get_the_ID();
+  $post = get_the_ID();
 
-	if (!$post) {
-	    echo "Error getting the current post ID";
-	    return;
-	}
+  if (!$post) {
+      echo "Error getting the current post ID";
+      return;
+  }
 
-	$id = media_handle_sideload( $file_array, 0, "showcase html");
+  $id = media_handle_sideload( $file_array, 0, "showcase html");
 
-	$src = wp_get_attachment_url($id);
+  $src = wp_get_attachment_url($id);
 
         return '<iframe width=800 height=800 src="' . $src . '" id="showcase"/>';
 }

@@ -8,19 +8,16 @@
     "icon": "flag",
     "description": "Croquet Web Showcase",
     "attributes": {
-	"message": {
-	    "type": "string",
-	    "source": "text",
-	    "selector": "div"
-	}
+        "cardsString": {
+            "type": "string",
+            "selector": "div"
+        }
     },
     "supports": {
-	"html": false
+    "html": false
     },
     "textdomain": "croquet",
     "editorScript": "file:./index.js",
     "editorStyle": "file:./index.css",
-    "style": "file:./style-index.css",
-    "renderCallback": "webshowcase_dynamic_render_callback",
-    "render_callback": "webshowcase_dynamic_render_callback"
+    "style": "file:./style-index.css"
 }

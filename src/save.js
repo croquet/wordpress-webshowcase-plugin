@@ -18,13 +18,5 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save( { attributes } ) {
-    /*
-  let name = useSelect((select) => {
-    return select( 'core' ).getEntityRecords( 'postType', 'post' );
-  }, []);
-*/
-
-    const blockProps = useBlockProps.save();
     return null;
-	return <div { ...blockProps }>{ name }</div>;
 }
