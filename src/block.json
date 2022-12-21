@@ -1,0 +1,26 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "croquet/webshowcase-block",
+    "version": "0.1.0",
+    "title": "Croquet Metaverse Web Showcase",
+    "category": "text",
+    "icon": "flag",
+    "description": "Croquet Web Showcase",
+    "attributes": {
+	"message": {
+	    "type": "string",
+	    "source": "text",
+	    "selector": "div"
+	}
+    },
+    "supports": {
+	"html": false
+    },
+    "textdomain": "croquet",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "renderCallback": "webshowcase_dynamic_render_callback",
+    "render_callback": "webshowcase_dynamic_render_callback"
+}
