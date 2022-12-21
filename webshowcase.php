@@ -41,11 +41,11 @@ function get_attachment_by_name($html_name) {
 
 function delete_if__exists($contents, $html_name) {
    $prev = get_attachment_by_name($html_name);
-         do_action('qm/debug', $prev );
    if ($prev) {
+       // I want to know how to get the previous content and delete it only if necessary
+       do_action('qm/debug', $prev);
        $id = $prev->ID;
        wp_delete_attachment($id, true);
-       do_action('qm/debug', $id);
    }
 }
 

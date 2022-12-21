@@ -3,8 +3,10 @@
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-components/
  */
-import { TextControl,
-        __experimentalVStack as VStack,
+import {
+    TextControl,
+    __experimentalVStack as VStack,
+    ResizableBox
         } from '@wordpress/components';
 
 /**
@@ -29,14 +31,6 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 export default function Edit( { attributes, setAttributes } ) {
     const blockProps = useBlockProps();
-    console.log("attributes", attributes);
-    if (!attributes.cardsString) {
-        let cardsString = JSON.stringify([
-            {place: 1, type: "image", path: "https://croquet.io/webshowcase/siteCompanyLogo.jpg"},
-            {place: 2, type: "pdf", path: "https://croquet.io/webshowcase/site/CompanyDeck.pdf"},
-        ]);
-        setAttributes({cardsString});
-    };
 
     const updateCards = (item, cardsArray) => {
         const index = cardsArray.findIndex((a) => a.place === item.place);
@@ -50,6 +44,20 @@ export default function Edit( { attributes, setAttributes } ) {
     };
 
     const set = (item) => {
+        if (item && !item.type) {
+            if (item.path) {
+                let match = /(jpe?g|gif|png)$/i.exec(item.path);
+                if (/(jpe?g|gif|png)$/i.test(item.path)) {
+                    item.type = "image"
+                } else if (/(pdf)$/i.test(item.path)) {
+                    item.type = "pdf"
+                } else if (/(mov|mp4)$/i.test(item.path)) {
+                    item.type = "video"
+                }
+            }
+            // we should be able to get the content type if it is in the media library
+        }
+        
         let cardsArray = JSON.parse(attributes.cardsString);
         let newCards = updateCards(item, cardsArray);
         setAttributes({cardsString: JSON.stringify(newCards)});
