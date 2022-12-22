@@ -6,8 +6,10 @@
 import {
     TextControl,
     __experimentalVStack as VStack,
-    ResizableBox
-        } from '@wordpress/components';
+    ComboboxControl
+} from '@wordpress/components';
+
+import {useState, useCallback} from "@wordpress/element";
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -32,6 +34,8 @@ import { useBlockProps } from '@wordpress/block-editor';
 export default function Edit( { attributes, setAttributes } ) {
     const blockProps = useBlockProps();
 
+    let [cards, setCards] = useState(JSON.parse(attributes.cardsString));
+
     const updateCards = (item, cardsArray) => {
         const index = cardsArray.findIndex((a) => a.place === item.place);
         const newCards = [...cardsArray];
@@ -43,43 +47,80 @@ export default function Edit( { attributes, setAttributes } ) {
         return newCards;
     };
 
-    const set = (item) => {
-        if (item && !item.type) {
-            if (item.path) {
-                let match = /(jpe?g|gif|png)$/i.exec(item.path);
-                if (/(jpe?g|gif|png)$/i.test(item.path)) {
-                    item.type = "image"
-                } else if (/(pdf)$/i.test(item.path)) {
-                    item.type = "pdf"
-                } else if (/(mov|mp4)$/i.test(item.path)) {
-                    item.type = "video"
-                }
-            }
-            // we should be able to get the content type if it is in the media library
+    const set = useCallback((item) => {
+        if (item && !item.type && item.path) {
+            item.type = getType(item.path);
         }
-        
-        let cardsArray = JSON.parse(attributes.cardsString);
-        let newCards = updateCards(item, cardsArray);
-        setAttributes({cardsString: JSON.stringify(newCards)});
-    }
 
-    const get = (index) => {
-        let cardsArray = JSON.parse(attributes.cardsString);
-        return cardsArray[index];
-    };
+        console.log(item);
+        let newCards = updateCards(item, cards);
+        setCards(newCards);
+        setAttributes({cardsString: JSON.stringify(newCards)});
+    }, [cards]);
+
+    const get = useCallback((index) => {
+        return cards[index];
+    }, [cards]);
+
+    let rows = [...Array(2).keys()].map(i => (
+        <MediaRow key={i} path={get(i).path} type={getType(get(i).path)} place={i + 1} set={set} get={get}/>
+    ));
 
     return (
-        <div { ...blockProps }>
+        <div className="showcase-container" { ...blockProps }>
             <VStack>
-                <TextControl
-                    value={get(0).path}
-                    onChange={ ( val ) => set( { place: 1, path: val } )}
-                />
-                <TextControl
-                    value={get(1).path}
-                    onChange={ ( val ) => set( { place: 2, path: val } ) }
-                />
+                {rows}
             </VStack>
         </div>
     );
+}
+
+function MediaRow({path, type, place, set, get}) {
+    let onPathChange = (val) => {
+        set({place, path: val});
+    };
+    let onTypeChange = (val) => {
+        set({place, path, type: val});
+    };
+
+    // className="showcase-media-row-path"
+
+    return (
+        <div className="showcase-media-row">
+            <div className={"showcase-media-row-path"}>
+                <TextControl
+                    label={"path"}
+                    value={get(place - 1).path}
+                    onChange={onPathChange}
+                />
+            </div>
+            <div className={"showcase-media-row-type"}>
+                <ComboboxControl
+                    label="media type"
+                    onchange={onTypeChange}
+                    value={type}
+                    style={{width: "80px", merginLeft: "10px"}}
+                    options={[
+                        {label: "image", value: "image"},
+                        {label: "pdf", value: "pdf"},
+                        {label: "video", value: "video"}
+                    ]}
+                />
+            </div>
+        </div>
+    );
+}
+
+function getType(path) {
+    if (/(jpe?g|gif|png)$/i.test(path)) {
+        return "image"
+    }
+    if (/(pdf)$/i.test(path)) {
+        return "pdf";
+    }
+    if (/(mov|mp4)$/i.test(path)) {
+        return "video";
+    }
+    // we should be able to get the content type if it is in the media library
+    return null;
 }

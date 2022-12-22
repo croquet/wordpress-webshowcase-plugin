@@ -4,6 +4,20 @@
  * Replace them with your own styles or remove the file completely.
  */
 
+.showcase-container {
+    border: 1px solid #757575;
+}
+
 .showcase-media-row {
     display: flex;
+    width: 100%;
+}
+
+.showcase-media-row-path {
+    width: 70%;
+}
+
+.showcase-media-row-type {
+    width: 120px;
+    margin-left: 10px;
 }
