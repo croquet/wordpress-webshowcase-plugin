@@ -17,6 +17,16 @@
             "type": "string",
             "selector": "div",
             "default": "800px"
+        },
+        "apiKey": {
+            "type": "string",
+            "selector": "div",
+            "default": ""
+        },
+        "showcaseName": {
+            "type": "string",
+            "selector": "div",
+            "default": "web showcase"
         }
     },
     "supports": {

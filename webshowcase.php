@@ -43,7 +43,6 @@ function delete_if__exists($contents, $html_name) {
    $prev = get_attachment_by_name($html_name);
    if ($prev) {
        // I want to know how to get the previous content and delete it only if necessary
-       do_action('qm/debug', $prev);
        $id = $prev->ID;
        wp_delete_attachment($id, true);
    }
@@ -62,15 +61,18 @@ function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
       load({
         title: "My Web Showcase", 
         showcase: "gallery",
+        voiceChat: true,
 
 SHOWCASE;
 
   $contents2 = '        cards: ' . $block_attributes['cardsString'] . ",\n";
 
-  $contents3 = <<<SHOWCASE
-        voiceChat: true,
-        appId: "io.croquet.yoshiki.webshowcase",
-        apiKey: "1oC9rKnKr4kkttz5HqJ4mDycjupJA5eiF2CMhdvIf",
+  $sanitized = strtolower(preg_replace("/[^A-Za-z0-9-]+/", "", $block_attributes['showcaseName']));
+
+  $contents3 = '        appId: "io.croquet.webshowcase.' . $sanitized . '",' . "\n" .
+        '        apiKey: "' . $block_attributes['apiKey'] . '",' . "\n";
+
+  $contents4 = <<<SHOWCASE
       });
     </script>
   </body>
@@ -79,7 +81,6 @@ SHOWCASE;
 SHOWCASE;
 
   $minHeight = $block_attributes['minHeight'];
-  do_action('qm/debug', $minHeight);  
 
   delete_if__exists(null, $filename);
 
@@ -89,7 +90,7 @@ SHOWCASE;
       echo "Error creating a temporary file";
       return;
         }
-  $count = fwrite($file, $contents1 . $contents2 . $contents3);
+  $count = fwrite($file, $contents1 . $contents2 . $contents3 . $contents4);
   if (!$count) {
       echo "Error writing into a temporary file";
       return;

@@ -41,6 +41,8 @@ export default function Edit( { attributes, setAttributes } ) {
 
     let [cards, setCards] = useState(JSON.parse(attributes.cardsString));
     let [minHeight, setMinHeight] = useState(attributes.minHeight);
+    let [apiKey, setApiKey] = useState(attributes.apiKey);
+    let [showcaseName, setShowcaseName] = useState(attributes.showcaseName);
 
     const updateCards = (item, cardsArray) => {
         const index = cardsArray.findIndex((a) => a.place === item.place);
@@ -68,12 +70,23 @@ export default function Edit( { attributes, setAttributes } ) {
         return cards[index];
     }, [cards]);
 
+    const updateApiKey = (val) => {
+        setAttributes({apiKey: val});
+        setApiKey(val);
+    };
+
     const updateMinHeight = (val) => {
         setAttributes({minHeight: val});
         setMinHeight(val);
     };
 
-    let header = <Heading key={0}>Metaverse Web Showcase</Heading>;
+    const updateShowcaseName = (val) => {
+        setAttributes({showcaseName: val});
+        setShowcaseName(val);
+    };
+
+    let apiKeyText = <div key={-1} style={{width:"70%"}}><TextControl label={"API Key"} value={apiKey} onChange={updateApiKey}/></div>;
+    let showcaseNameText = <div key={-2} style={{width:"70%"}}><TextControl label={"Showcase Name"} value={showcaseName} onChange={updateShowcaseName}/></div>;
 
     let rows = [...Array(2).keys()].map(i => (
         <MediaRow key={i + 1} path={get(i).path} type={get(i).type} place={i + 1} set={set} get={get}/>
@@ -83,7 +96,7 @@ export default function Edit( { attributes, setAttributes } ) {
         <>
             <div className="showcase-container" { ...blockProps} style={{minHeight, border: "1px solid #757575"}}>
                 <VStack alignment={"top"}>
-                    {[header, ...rows]}
+                    {[apiKeyText, showcaseNameText, ...rows]}
                 </VStack>
             </div>
             <InspectorControls>
