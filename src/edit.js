@@ -4,10 +4,15 @@
  * @see https://developer.wordpress.org/block-editor/packages/packages-components/
  */
 import {
+    __experimentalHeading as Heading,
     TextControl,
     __experimentalVStack as VStack,
-    ComboboxControl
+    __experimentalUnitControl as UnitControl,
+    ComboboxControl,
+    PanelBody
 } from '@wordpress/components';
+
+import {InspectorControls} from '@wordpress/block-editor';
 
 import {useState, useCallback} from "@wordpress/element";
 
@@ -35,6 +40,7 @@ export default function Edit( { attributes, setAttributes } ) {
     const blockProps = useBlockProps();
 
     let [cards, setCards] = useState(JSON.parse(attributes.cardsString));
+    let [minHeight, setMinHeight] = useState(attributes.minHeight);
 
     const updateCards = (item, cardsArray) => {
         const index = cardsArray.findIndex((a) => a.place === item.place);
@@ -62,16 +68,33 @@ export default function Edit( { attributes, setAttributes } ) {
         return cards[index];
     }, [cards]);
 
+    const updateMinHeight = (val) => {
+        setAttributes({minHeight: val});
+        setMinHeight(val);
+    };
+
+    let header = <Heading key={0}>Metaverse Web Showcase</Heading>;
+
     let rows = [...Array(2).keys()].map(i => (
-        <MediaRow key={i} path={get(i).path} type={getType(get(i).path)} place={i + 1} set={set} get={get}/>
+        <MediaRow key={i + 1} path={get(i).path} type={get(i).type} place={i + 1} set={set} get={get}/>
     ));
 
     return (
-        <div className="showcase-container" { ...blockProps }>
-            <VStack>
-                {rows}
-            </VStack>
-        </div>
+        <>
+            <div className="showcase-container" { ...blockProps} style={{minHeight, border: "1px solid #757575"}}>
+                <VStack alignment={"top"}>
+                    {[header, ...rows]}
+                </VStack>
+            </div>
+            <InspectorControls>
+                <PanelBody title={"Settings"}>
+                    <UnitControl
+                        label="Minimum Height"
+                        value={minHeight}
+                        onChange={updateMinHeight}/>
+                </PanelBody>
+            </InspectorControls>
+        </>
     );
 }
 
@@ -97,7 +120,7 @@ function MediaRow({path, type, place, set, get}) {
             <div className={"showcase-media-row-type"}>
                 <ComboboxControl
                     label="media type"
-                    onchange={onTypeChange}
+                    onChange={onTypeChange}
                     value={type}
                     style={{width: "80px", merginLeft: "10px"}}
                     options={[

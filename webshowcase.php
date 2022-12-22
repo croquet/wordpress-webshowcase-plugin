@@ -78,6 +78,9 @@ SHOWCASE;
 
 SHOWCASE;
 
+  $minHeight = $block_attributes['minHeight'];
+  do_action('qm/debug', $minHeight);  
+
   delete_if__exists(null, $filename);
 
   $file = fopen($tmp_filename, 'w');
@@ -108,5 +111,5 @@ SHOWCASE;
 
   $src = wp_get_attachment_url($id);
 
-        return '<iframe width=800 height=800 src="' . $src . '" id="showcase"/>';
+        return '<div class="is-layout-flex showcase-container"><iframe width="100%" height=' . $minHeight . 'class="showcase-iframe" src="' . $src . '"/></div>';
 }

@@ -12,6 +12,11 @@
             "type": "string",
             "selector": "div",
             "default": "[{\"place\":1,\"type\":\"image\",\"path\":\"https://croquet.io/webshowcase/site/CompanyLogo.jpg\"},{\"place\":2,\"type\":\"pdf\",\"path\":\"https://croquet.io/webshowcase/site/CompanyDeck.pdf\"}]"
+        },
+        "minHeight": {
+            "type": "string",
+            "selector": "div",
+            "default": "800px"
         }
     },
     "supports": {
