@@ -71,7 +71,12 @@ SHOWCASE;
   $sanitizedCards = "";
   foreach($decodedCards as $card) {
       if ($card['path']) {
-          $sanitizedCards = $sanitizedCards . json_encode($card, JSON_UNESCAPED_SLASHES);
+         $encoded = json_encode($card, JSON_UNESCAPED_SLASHES);
+         if (strlen($sanitizedCards) == 0) {
+	      $sanitizedCards = $encoded;
+	 } else {
+	      $sanitizedCards = $sanitizedCards . ", " . $encoded;
+         }
       }
   }
 
