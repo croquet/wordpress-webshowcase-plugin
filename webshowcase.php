@@ -65,7 +65,17 @@ function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
 
 SHOWCASE;
 
-  $contents2 = '        cards: ' . $block_attributes['cardsString'] . ",\n";
+  $decodedCards = json_decode($block_attributes['cardsString'], true);
+  do_action("qm/debug", $decodedCards);
+
+  $sanitizedCards = "";
+  foreach($decodedCards as $card) {
+      if ($card['place']) {
+          $sanitizedCards = $sanitizedCards . json_encode($card, JSON_UNESCAPED_SLASHES);
+      }
+  }
+
+  $contents2 = '        cards: [' . $sanitizedCards . '],' . "\n";
 
   $sanitized = strtolower(preg_replace("/[^A-Za-z0-9-]+/", "", $block_attributes['showcaseName']));
 

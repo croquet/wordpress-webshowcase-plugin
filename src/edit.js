@@ -5,6 +5,7 @@
  */
 import {
     __experimentalHeading as Heading,
+    Button,
     TextControl,
     __experimentalVStack as VStack,
     __experimentalUnitControl as UnitControl,
@@ -12,7 +13,9 @@ import {
     PanelBody
 } from '@wordpress/components';
 
-import {InspectorControls} from '@wordpress/block-editor';
+import {
+    InspectorControls
+} from '@wordpress/block-editor';
 
 import {useState, useCallback} from "@wordpress/element";
 
@@ -60,15 +63,55 @@ export default function Edit( { attributes, setAttributes } ) {
             item.type = getType(item.path);
         }
 
-        console.log(item);
         let newCards = updateCards(item, cards);
-        setCards(newCards);
-        setAttributes({cardsString: JSON.stringify(newCards)});
+        updateCardAttribute(newCards);
     }, [cards]);
 
     const get = useCallback((index) => {
         return cards[index];
     }, [cards]);
+
+    const move = (dir, index) => {
+        let newCards = [...cards];
+        if (dir === "up") {
+            let t = newCards[index - 1];
+            newCards[index - 1] = newCards[index];
+            newCards[index] = t;
+
+            let p = newCards[index - 1].place;
+            newCards[index - 1].place = newCards[index].place;
+            newCards[index].place = p;
+
+            updateCardAttribute(newCards);
+        } else if (dir === "down") {
+            let t = newCards[index + 1];
+            newCards[index + 1] = newCards[index];
+            newCards[index] = t;
+
+            let p = newCards[index + 1].place;
+            newCards[index + 1].place = newCards[index].place;
+            newCards[index].place = p;
+
+            updateCardAttribute(newCards);
+        }
+    };
+
+    const add = () => {
+        let newCards = [...cards];
+        newCards.push({});
+        updateCardAttribute(newCards);
+    };
+
+    const remove = (index) => {
+        let newCards = [...cards];
+        newCards.splice(index, 1);
+        updateCardAttribute(newCards);
+    };
+
+    const updateCardAttribute = (newCards) => {
+        setCards(newCards);
+        setAttributes({cardsString: JSON.stringify(newCards)});
+    };
 
     const updateApiKey = (val) => {
         setAttributes({apiKey: val});
@@ -85,18 +128,38 @@ export default function Edit( { attributes, setAttributes } ) {
         setShowcaseName(val);
     };
 
-    let apiKeyText = <div key={-1} style={{width:"70%"}}><TextControl label={"API Key"} value={apiKey} onChange={updateApiKey}/></div>;
-    let showcaseNameText = <div key={-2} style={{width:"70%"}}><TextControl label={"Showcase Name"} value={showcaseName} onChange={updateShowcaseName}/></div>;
+    let apiKeyText = (
+        <div className={"showcase-media-row"} key={-1}>
+            <BlockMover placeHolder={true}/>
+            <div style={{width: "70%"}}>
+                <TextControl label={"API Key"} value={apiKey} onChange={updateApiKey}/>
+            </div>
+        </div>);
 
-    let rows = [...Array(2).keys()].map(i => (
-        <MediaRow key={i + 1} path={get(i).path} type={get(i).type} place={i + 1} set={set} get={get}/>
+    let showcaseNameText = (
+        <div key={-2} className={"showcase-media-row"}>
+            <BlockMover placeHolder={true}/>
+            <div style={{width: "70%"}}>
+                <TextControl label={"Showcase Name"} value={showcaseName} onChange={updateShowcaseName}/>
+            </div>
+        </div>);
+
+    let rows = [...Array(cards.length).keys()].map(i => (
+        <MediaRow
+            key={i + 1} path={get(i).path}
+            hasUp={i !== 0} hasDown={i !== (cards.length - 1)}
+            type={get(i).type} place={i + 1} set={set} get={get}
+            move={move}
+            remove={remove}/>
     ));
+
+    let addButton = (<AddButton key={-3} add={add}/>);
 
     return (
         <>
             <div className="showcase-container" { ...blockProps} style={{minHeight, border: "1px solid #757575"}}>
                 <VStack alignment={"top"}>
-                    {[apiKeyText, showcaseNameText, ...rows]}
+                    {[apiKeyText, showcaseNameText, ...rows, addButton]}
                 </VStack>
             </div>
             <InspectorControls>
@@ -111,7 +174,7 @@ export default function Edit( { attributes, setAttributes } ) {
     );
 }
 
-function MediaRow({path, type, place, set, get}) {
+function MediaRow({path, type, place, hasUp, hasDown, set, get, move, remove}) {
     let onPathChange = (val) => {
         set({place, path: val});
     };
@@ -123,6 +186,7 @@ function MediaRow({path, type, place, set, get}) {
 
     return (
         <div className="showcase-media-row">
+            <BlockMover hasUp={hasUp} hasDown={hasDown} move={move} index={place - 1}/>
             <div className={"showcase-media-row-path"}>
                 <TextControl
                     label={"path"}
@@ -133,9 +197,10 @@ function MediaRow({path, type, place, set, get}) {
             <div className={"showcase-media-row-type"}>
                 <ComboboxControl
                     label="media type"
+                    allowReset={false}
                     onChange={onTypeChange}
                     value={type}
-                    style={{width: "80px", merginLeft: "10px"}}
+                    style={{width: "60px", merginLeft: "10px"}}
                     options={[
                         {label: "image", value: "image"},
                         {label: "pdf", value: "pdf"},
@@ -143,7 +208,78 @@ function MediaRow({path, type, place, set, get}) {
                     ]}
                 />
             </div>
+            <div className={"showcase-media-row-delete"}>
+                <DeleteButton index={place - 1} remove={remove}/>
+            </div>
         </div>
+    );
+}
+
+function BlockMover({hasUp, hasDown, index, placeHolder, move}) {
+    let upHandler = () => {
+        console.log("up");
+        move("up", index);
+    }
+    let downHandler = () => {
+        console.log("down");
+        move("down", index);
+    }
+
+    let upButton = (
+        <button
+            type="button"
+            onClick={hasUp ? upHandler : null}
+            tabIndex="-1"
+            data-toolbar-item="true"
+            aria-disabled={!hasUp}
+            className="components-button block-editor-block-mover-button is-up-button has-icon"
+            aria-label="Move up"
+            style={{height: "24px"}}>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg>
+        </button>
+    );
+
+    let downButton = (
+        <button
+            type="button"
+            onClick={hasDown ? downHandler : null}
+            tabIndex="-1"
+            aria-disabled={!hasDown}
+            className="components-button block-editor-block-mover-button is-down-button has-icon"
+            aria-label="Move down" style={{height: "24px"}}>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg>
+        </button>
+    );
+
+    let style = {height: "48px", flexDirection: "column"};
+    if (placeHolder) {
+        style.visibility = "hidden";
+    }
+    return (
+        <div className={"block-editor-block-mover__move-button-container"} style={style}>
+            {upButton}
+            {downButton}
+        </div>
+    );
+}
+
+function DeleteButton({index, remove}) {
+    let onClick = () => {
+        remove(index);
+    };
+
+    return (
+        <Button
+            onClick={onClick}
+            icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"></path></svg>}/>
+    );
+}
+
+function AddButton({add}) {
+    return (
+        <Button variant="primary" style={{width: "24px", height: "24px", alignSelf: "end"}}
+            onClick={add}
+            icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z"></path></svg>}/>
     );
 }
 

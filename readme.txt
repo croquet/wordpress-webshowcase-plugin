@@ -37,3 +37,9 @@ Answer to foo bar dilemma.
 You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
 plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
 "installation." Arbitrary sections will be shown below the built-in sections outlined above.
+
+== To Do ==
+
+- Investigate if BlockMover can be used for my own component, so that those lines can be moved with it.
+  If not, take the design of the button and add code.
+- Add delete button, and add add button.
