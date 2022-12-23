@@ -40,90 +40,90 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
-    const blockProps = useBlockProps();
+    let blockProps = useBlockProps();
 
     let [cards, setCards] = useState(JSON.parse(attributes.cardsString));
     let [minHeight, setMinHeight] = useState(attributes.minHeight);
     let [apiKey, setApiKey] = useState(attributes.apiKey);
     let [showcaseName, setShowcaseName] = useState(attributes.showcaseName);
 
-    const updateCards = (item, cardsArray) => {
-        const index = cardsArray.findIndex((a) => a.place === item.place);
+    let updateCards = (item, index, cardsArray) => {
         const newCards = [...cardsArray];
-        if (index >= 0) {
-            newCards[index] = item;
-        } else {
-            newCards.push(item);
-        }
+        newCards[index] = item;
         return newCards;
     };
 
-    const set = useCallback((item) => {
+    let set = useCallback((item, index) => {
+        console.log("set", item, index);
         if (item && !item.type && item.path) {
             item.type = getType(item.path);
         }
 
-        let newCards = updateCards(item, cards);
+        let newCards = updateCards(item, index, cards);
+        renumberCards(newCards);
         updateCardAttribute(newCards);
     }, [cards]);
 
-    const get = useCallback((index) => {
+    let get = useCallback((index) => {
         return cards[index];
     }, [cards]);
 
-    const move = (dir, index) => {
+    let move = (dir, index) => {
         let newCards = [...cards];
         if (dir === "up") {
             let t = newCards[index - 1];
             newCards[index - 1] = newCards[index];
             newCards[index] = t;
 
-            let p = newCards[index - 1].place;
-            newCards[index - 1].place = newCards[index].place;
-            newCards[index].place = p;
-
+            renumberCards(newCards);
             updateCardAttribute(newCards);
         } else if (dir === "down") {
             let t = newCards[index + 1];
             newCards[index + 1] = newCards[index];
             newCards[index] = t;
 
-            let p = newCards[index + 1].place;
-            newCards[index + 1].place = newCards[index].place;
-            newCards[index].place = p;
-
+            renumberCards(newCards);
             updateCardAttribute(newCards);
         }
     };
 
-    const add = () => {
+    let add = () => {
         let newCards = [...cards];
         newCards.push({});
+        renumberCards(newCards);
         updateCardAttribute(newCards);
     };
 
-    const remove = (index) => {
+    let remove = (index) => {
         let newCards = [...cards];
         newCards.splice(index, 1);
+        renumberCards(newCards);
         updateCardAttribute(newCards);
     };
 
-    const updateCardAttribute = (newCards) => {
+    let renumberCards = (newCards) => {
+        for (let i = 0; i < newCards.length; i++) {
+            newCards[i].place = i + 1;
+        }
+        return newCards;
+    };
+
+    let updateCardAttribute = (newCards) => {
         setCards(newCards);
         setAttributes({cardsString: JSON.stringify(newCards)});
     };
 
-    const updateApiKey = (val) => {
+    let updateApiKey = (val) => {
         setAttributes({apiKey: val});
         setApiKey(val);
     };
 
-    const updateMinHeight = (val) => {
+    let updateMinHeight = (val) => {
         setAttributes({minHeight: val});
         setMinHeight(val);
     };
 
-    const updateShowcaseName = (val) => {
+    let updateShowcaseName = (val) => {
         setAttributes({showcaseName: val});
         setShowcaseName(val);
     };
@@ -146,9 +146,11 @@ export default function Edit( { attributes, setAttributes } ) {
 
     let rows = [...Array(cards.length).keys()].map(i => (
         <MediaRow
-            key={i + 1} path={get(i).path}
+            key={i + 1}
+            index={i}
+            path={get(i).path || ""}
             hasUp={i !== 0} hasDown={i !== (cards.length - 1)}
-            type={get(i).type} place={i + 1} set={set} get={get}
+            type={get(i).type} set={set} get={get}
             move={move}
             remove={remove}/>
     ));
@@ -174,23 +176,23 @@ export default function Edit( { attributes, setAttributes } ) {
     );
 }
 
-function MediaRow({path, type, place, hasUp, hasDown, set, get, move, remove}) {
+function MediaRow({path, type, index, hasUp, hasDown, set, get, move, remove}) {
     let onPathChange = (val) => {
-        set({place, path: val});
+        set({path: val}, index);
     };
     let onTypeChange = (val) => {
-        set({place, path, type: val});
+        set({path, type: val}, index);
     };
 
     // className="showcase-media-row-path"
 
     return (
         <div className="showcase-media-row">
-            <BlockMover hasUp={hasUp} hasDown={hasDown} move={move} index={place - 1}/>
+            <BlockMover hasUp={hasUp} hasDown={hasDown} move={move} index={index}/>
             <div className={"showcase-media-row-path"}>
                 <TextControl
                     label={"path"}
-                    value={get(place - 1).path}
+                    value={path}
                     onChange={onPathChange}
                 />
             </div>
@@ -209,7 +211,7 @@ function MediaRow({path, type, place, hasUp, hasDown, set, get, move, remove}) {
                 />
             </div>
             <div className={"showcase-media-row-delete"}>
-                <DeleteButton index={place - 1} remove={remove}/>
+                <DeleteButton index={index} remove={remove}/>
             </div>
         </div>
     );
@@ -217,11 +219,9 @@ function MediaRow({path, type, place, hasUp, hasDown, set, get, move, remove}) {
 
 function BlockMover({hasUp, hasDown, index, placeHolder, move}) {
     let upHandler = () => {
-        console.log("up");
         move("up", index);
     }
     let downHandler = () => {
-        console.log("down");
         move("down", index);
     }
 

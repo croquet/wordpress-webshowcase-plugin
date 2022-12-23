@@ -66,11 +66,11 @@ function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
 SHOWCASE;
 
   $decodedCards = json_decode($block_attributes['cardsString'], true);
-  do_action("qm/debug", $decodedCards);
+  // do_action("qm/debug", $decodedCards);
 
   $sanitizedCards = "";
   foreach($decodedCards as $card) {
-      if ($card['place']) {
+      if ($card['path']) {
           $sanitizedCards = $sanitizedCards . json_encode($card, JSON_UNESCAPED_SLASHES);
       }
   }
