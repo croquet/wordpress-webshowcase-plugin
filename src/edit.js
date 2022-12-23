@@ -9,6 +9,7 @@ import {
     TextControl,
     __experimentalVStack as VStack,
     __experimentalUnitControl as UnitControl,
+    __experimentalDivider as Divider,
     ComboboxControl,
     PanelBody
 } from '@wordpress/components';
@@ -88,6 +89,7 @@ export default function Edit( { attributes, setAttributes } ) {
     };
 
     let add = () => {
+        if (cards.length === 9) {return;}
         let newCards = [...cards];
         newCards.push({});
         renumberCards(newCards);
@@ -128,6 +130,8 @@ export default function Edit( { attributes, setAttributes } ) {
         setShowcaseName(val);
     };
 
+    let title = <Heading style={{alignSelf: "center"}} key={-5} level={4}>Web Showcase Configuration</Heading>;
+
     let apiKeyText = (
         <div className={"showcase-media-row"} key={-1}>
             <BlockMover placeHolder={true}/>
@@ -150,18 +154,18 @@ export default function Edit( { attributes, setAttributes } ) {
             index={i}
             path={get(i).path || ""}
             hasUp={i !== 0} hasDown={i !== (cards.length - 1)}
-            type={get(i).type} set={set} get={get}
+            type={get(i).type} set={set}
             move={move}
             remove={remove}/>
     ));
 
-    let addButton = (<AddButton key={-3} add={add}/>);
+    let addButton = (<AddButton key={-3} visible={cards.length < 9} add={add}/>);
 
     return (
         <>
             <div className="showcase-container" { ...blockProps} style={{minHeight, border: "1px solid #757575"}}>
                 <VStack alignment={"top"}>
-                    {[apiKeyText, showcaseNameText, ...rows, addButton]}
+                    {[title, apiKeyText, showcaseNameText, <Divider key={-4}/>, ...rows, addButton]}
                 </VStack>
             </div>
             <InspectorControls>
@@ -176,7 +180,7 @@ export default function Edit( { attributes, setAttributes } ) {
     );
 }
 
-function MediaRow({path, type, index, hasUp, hasDown, set, get, move, remove}) {
+function MediaRow({path, type, index, hasUp, hasDown, set, move, remove}) {
     let onPathChange = (val) => {
         set({path: val}, index);
     };
@@ -275,9 +279,14 @@ function DeleteButton({index, remove}) {
     );
 }
 
-function AddButton({add}) {
+function AddButton({add, visible}) {
+    let style = {width: "24px", height: "24px", alignSelf: "end"};
+    if (!visible) {
+        style.display = "none"
+    }
+
     return (
-        <Button variant="primary" style={{width: "24px", height: "24px", alignSelf: "end"}}
+        <Button variant="primary" style={style}
             onClick={add}
             icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z"></path></svg>}/>
     );

@@ -12,39 +12,37 @@
  */
 
 function webshowcase_dynamic_init() {
-    require_once(ABSPATH . 'wp-admin/includes/media.php');
-    require_once(ABSPATH . 'wp-admin/includes/file.php');
-    require_once(ABSPATH . 'wp-admin/includes/image.php');
+  require_once(ABSPATH . 'wp-admin/includes/media.php');
+  require_once(ABSPATH . 'wp-admin/includes/file.php');
+  require_once(ABSPATH . 'wp-admin/includes/image.php');
 
-    register_block_type( __DIR__ . '/build', array(
-        'render_callback' => 'webshowcase_dynamic_render_callback'
-    ) );
+  register_block_type( __DIR__ . '/build', array(
+    'render_callback' => 'webshowcase_dynamic_render_callback'));
 }
 
-add_action( 'init', 'webshowcase_dynamic_init');
+add_action('init', 'webshowcase_dynamic_init');
 
 function get_attachment_by_name($html_name) {
    $args = array(
-            'posts_per_page' => 1,
-            'post_type'      => 'attachment',
-            'name'           => trim( $html_name ),
-         );
+     'posts_per_page' => 1,
+     'post_type'      => 'attachment',
+     'name'           => trim( $html_name ));
 
-         $get_attachment = new WP_Query( $args );
+   $get_attachment = new WP_Query( $args );
 
-         if (! $get_attachment || ! isset( $get_attachment->posts, $get_attachment->posts[0])) {
-             return false;
-         }
+   if (! $get_attachment || ! isset( $get_attachment->posts, $get_attachment->posts[0])) {
+     return false;
+   }
 
-         return $get_attachment->posts[0];
+   return $get_attachment->posts[0];
 }
 
 function delete_if__exists($contents, $html_name) {
    $prev = get_attachment_by_name($html_name);
    if ($prev) {
-       // I want to know how to get the previous content and delete it only if necessary
-       $id = $prev->ID;
-       wp_delete_attachment($id, true);
+     // I want to know how to get the previous content and delete it only if necessary
+     $id = $prev->ID;
+     wp_delete_attachment($id, true);
    }
 }
 
@@ -70,14 +68,14 @@ SHOWCASE;
 
   $sanitizedCards = "";
   foreach($decodedCards as $card) {
-      if ($card['path']) {
-         $encoded = json_encode($card, JSON_UNESCAPED_SLASHES);
-         if (strlen($sanitizedCards) == 0) {
-	      $sanitizedCards = $encoded;
-	 } else {
-	      $sanitizedCards = $sanitizedCards . ", " . $encoded;
-         }
+    if ($card['path']) {
+      $encoded = json_encode($card, JSON_UNESCAPED_SLASHES);
+      if (strlen($sanitizedCards) == 0) {
+        $sanitizedCards = $encoded;
+      } else {
+        $sanitizedCards = $sanitizedCards . ", " . $encoded;
       }
+    }
   }
 
   $contents2 = '        cards: [' . $sanitizedCards . '],' . "\n";
@@ -85,7 +83,7 @@ SHOWCASE;
   $sanitized = strtolower(preg_replace("/[^A-Za-z0-9-]+/", "", $block_attributes['showcaseName']));
 
   $contents3 = '        appId: "io.croquet.webshowcase.' . $sanitized . '",' . "\n" .
-        '        apiKey: "' . $block_attributes['apiKey'] . '",' . "\n";
+     '        apiKey: "' . $block_attributes['apiKey'] . '",' . "\n";
 
   $contents4 = <<<SHOWCASE
       });
@@ -102,14 +100,14 @@ SHOWCASE;
   $file = fopen($tmp_filename, 'w');
 
   if (!$file) {
-      echo "Error creating a temporary file";
-      return;
-        }
+    echo "Error creating a temporary file";
+    return;
+  }
   $count = fwrite($file, $contents1 . $contents2 . $contents3 . $contents4);
   if (!$count) {
-      echo "Error writing into a temporary file";
-      return;
-        }
+    echo "Error writing into a temporary file";
+    return;
+  }
   fclose($file);
 
   $file_array = array();
@@ -119,13 +117,13 @@ SHOWCASE;
   $post = get_the_ID();
 
   if (!$post) {
-      echo "Error getting the current post ID";
-      return;
+    echo "Error getting the current post ID";
+    return;
   }
 
   $id = media_handle_sideload( $file_array, 0, "showcase html");
 
   $src = wp_get_attachment_url($id);
 
-        return '<div class="is-layout-flex showcase-container"><iframe width="100%" height=' . $minHeight . 'class="showcase-iframe" src="' . $src . '"/></div>';
+  return '<div class="is-layout-flex showcase-container"><iframe width="100%" height=' . $minHeight . 'class="showcase-iframe" src="' . $src . '"/></div>';
 }
