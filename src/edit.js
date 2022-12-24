@@ -280,7 +280,7 @@ function DeleteButton({index, remove}) {
 }
 
 function AddButton({add, visible}) {
-    let style = {width: "24px", height: "24px", alignSelf: "end"};
+    let style = {width: "24px", height: "24px", alignSelf: "flex-end"};
     if (!visible) {
         style.display = "none"
     }
