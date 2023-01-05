@@ -11,6 +11,7 @@ import {
     __experimentalUnitControl as UnitControl,
     __experimentalDivider as Divider,
     ComboboxControl,
+    __experimentalText as Text,
     PanelBody
 } from '@wordpress/components';
 
@@ -26,7 +27,7 @@ import {useState, useCallback} from "@wordpress/element";
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import {useBlockProps} from '@wordpress/block-editor';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -40,7 +41,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit( { attributes, setAttributes } ) {
+export default function Edit({ attributes, setAttributes }) {
     let blockProps = useBlockProps();
 
     let [cards, setCards] = useState(JSON.parse(attributes.cardsString));
@@ -49,7 +50,7 @@ export default function Edit( { attributes, setAttributes } ) {
     let [showcaseName, setShowcaseName] = useState(attributes.showcaseName);
 
     let updateCards = (item, index, cardsArray) => {
-        const newCards = [...cardsArray];
+        let newCards = [...cardsArray];
         newCards[index] = item;
         return newCards;
     };
@@ -130,23 +131,19 @@ export default function Edit( { attributes, setAttributes } ) {
         setShowcaseName(val);
     };
 
-    let title = <Heading style={{alignSelf: "center"}} key={-5} level={4}>Web Showcase Configuration</Heading>;
+    let title = <Heading style={{alignSelf: "center"}} key={-5} level={4}>Croquet Web Showcase</Heading>;
 
     let apiKeyText = (
-        <div className={"showcase-media-row"} key={-1}>
-            <BlockMover placeHolder={true}/>
-            <div style={{width: "70%"}}>
-                <TextControl label={"API Key"} value={apiKey} onChange={updateApiKey}/>
-            </div>
-        </div>);
+        <Text style={{marginRight: "10px"}} color={apiKey === "" ? "red" : "black"} key={-1} align="right">
+            {apiKey === "" ? "Please set API key in the side bar settings" : "apiKey: " + apiKey}
+        </Text>
+    );
 
     let showcaseNameText = (
-        <div key={-2} className={"showcase-media-row"}>
-            <BlockMover placeHolder={true}/>
-            <div style={{width: "70%"}}>
-                <TextControl label={"Showcase Name"} value={showcaseName} onChange={updateShowcaseName}/>
-            </div>
-        </div>);
+        <Text style={{marginRight: "10px"}} color={showcaseName === "" ? "red" : "black"} key={-2} align="right">
+            {showcaseName === "" ? "Please set Showcase Name in the side bar settings" : "showcase name: " + showcaseName}
+        </Text>
+    );
 
     let rows = [...Array(cards.length).keys()].map(i => (
         <MediaRow
@@ -170,6 +167,14 @@ export default function Edit( { attributes, setAttributes } ) {
             </div>
             <InspectorControls>
                 <PanelBody title={"Settings"}>
+                    <TextControl
+                        label="Croquet API Key"
+                        value={apiKey}
+                        onChange={updateApiKey}/>
+                    <TextControl
+                        label="Showcase Name"
+                        value={showcaseName}
+                        onChange={updateShowcaseName}/>
                     <UnitControl
                         label="Minimum Height"
                         value={minHeight}
