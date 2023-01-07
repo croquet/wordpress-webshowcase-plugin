@@ -12,7 +12,8 @@ import {
     __experimentalDivider as Divider,
     ComboboxControl,
     __experimentalText as Text,
-    PanelBody
+    PanelBody,
+    DropZone
 } from '@wordpress/components';
 
 import {
@@ -20,6 +21,8 @@ import {
 } from '@wordpress/block-editor';
 
 import {useState, useCallback} from "@wordpress/element";
+
+import { uploadMedia } from "@wordpress/media-utils";
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -56,7 +59,6 @@ export default function Edit({ attributes, setAttributes }) {
     };
 
     let set = useCallback((item, index) => {
-        console.log("set", item, index);
         if (item && !item.type && item.path) {
             item.type = getType(item.path);
         }
@@ -89,10 +91,10 @@ export default function Edit({ attributes, setAttributes }) {
         }
     };
 
-    let add = () => {
+    let add = (optObj) => {
         if (cards.length === 9) {return;}
         let newCards = [...cards];
-        newCards.push({});
+        newCards.push(optObj || {});
         renumberCards(newCards);
         updateCardAttribute(newCards);
     };
@@ -158,6 +160,39 @@ export default function Edit({ attributes, setAttributes }) {
 
     let addButton = (<AddButton key={-3} visible={cards.length < 9} add={add}/>);
 
+    let handleFileChange = (files) => {
+        files.forEach((file) => {
+            if (file.id) {
+                let type = getType(file.url);
+                if (!type) {
+                    let mime_type = file.mime_type;
+                    if (mime_type.startsWith("image")) {
+                        type = "image";
+                    } else if (mime_type.startsWith("application/pdf")) {
+                        type = "pdf";
+                    } else if (mime_type.startsWith("video")) {
+                        type = "video";
+                    }
+                }
+                if (type) {
+                    add({path: file.url, type});
+                }
+            }
+        });
+    };
+
+    let handleFileError = (f) => {
+        console.error(f);
+    };
+
+    let onFilesDrop = (files) => {
+        uploadMedia({
+            filesList: files,
+            onFileChange: handleFileChange,
+            onError: handleFileError
+        });
+    };
+
     return (
         <>
             <div className="showcase-container" { ...blockProps} style={{minHeight, border: "1px solid #757575"}}>
@@ -165,6 +200,7 @@ export default function Edit({ attributes, setAttributes }) {
                     {[title, apiKeyText, showcaseNameText, <Divider key={-4}/>, ...rows, addButton]}
                 </VStack>
             </div>
+            <DropZone onFilesDrop={onFilesDrop}/>
             <InspectorControls>
                 <PanelBody title={"Settings"}>
                     <TextControl
