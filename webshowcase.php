@@ -6,13 +6,14 @@
  * Requires at least: 6.0
  * Requires PHP:      7.0
  * Author:            The Croquet Corporation
- * Plugin URI:        http://wordpress.org/plugins/croquet-showcase/
+ * Plugin URI:        https://croquet.io/webshowcase
  * Description:       Croquet Metaverse Web Showcase
  * Author URI:        https://croquet.io/
+ * License:           Apache-2.0
+ * License URI:       https://www.apache.org/licenses/LICENSE-2.0
  * Text Domain:       croquet-showcase
  * Domain Path:       /languages/
- *
- * @package           croquet-showcase
+
  */
 
 function webshowcase_dynamic_init() {
@@ -163,5 +164,5 @@ SHOWCASE;
 
   do_action("qm/debug", '$src: ' . $src);
 
-  return '<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . '"></iframe></div>';
+  return '<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . '?q=' . $sanitizedName . '#pw=1"></iframe></div>';
 }
