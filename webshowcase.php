@@ -139,7 +139,7 @@ SHOWCASE;
     $src = wp_get_attachment_url($id);
   }
 
-  // do_action("qm/debug", '$src: ' . $src);
+  do_action("qm/debug", '$src: ' . $src);
 
-  return '<div class="is-layout-flex showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . '"/></div>';
+  return '<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . '"></iframe></div>';
 }
