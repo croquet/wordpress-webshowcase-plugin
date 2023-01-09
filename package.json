@@ -1,7 +1,7 @@
 {
 	"name": "webshowcase",
-	"version": "0.1.0",
-	"description": "Showcase",
+	"version": "1.0.0",
+	"description": "Croquet Metaverse Web Showcase",
 	"author": "The Croquet Corporation",
 	"main": "build/index.js",
 	"scripts": {

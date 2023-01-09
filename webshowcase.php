@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Metaverse Web Showcase
  * Description:       Metaverse Web Showcase
- * Version:           0.1.0
+ * Version:           1.0.0
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Author:            The Croquet Corporation
@@ -40,15 +40,24 @@ function get_attachment_by_name($html_name) {
 function delete_if__exists($contents, $html_name) {
    $prev = get_attachment_by_name($html_name);
    if ($prev) {
+     $file = file_get_contents($prev->guid);
+     /*
+     do_action("qm/debug", $file);
+     do_action("qm/debug", $contents);
+     do_action("qm/debug", 'equal: ' . ($file == $contents));
+     */
+
+     if ($file && $file == $contents) {return $prev->guid;}
+
      // I want to know how to get the previous content and delete it only if necessary
      $id = $prev->ID;
+
      wp_delete_attachment($id, true);
    }
+   return false;
 }
 
 function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
-  $filename = 'showcase.html';
-  $tmp_filename = get_temp_dir() . 'showcase.html.tmp';
   $contents1 = <<<SHOWCASE
 <!DOCTYPE html>
 <html>
@@ -80,9 +89,9 @@ SHOWCASE;
 
   $contents2 = '        cards: [' . $sanitizedCards . '],' . "\n";
 
-  $sanitized = strtolower(preg_replace("/[^A-Za-z0-9-]+/", "", $block_attributes['showcaseName']));
+  $sanitizedName = strtolower(preg_replace("/[^A-Za-z0-9-]+/", "", $block_attributes['showcaseName']));
 
-  $contents3 = '        appId: "io.croquet.webshowcase.' . $sanitized . '",' . "\n" .
+  $contents3 = '        appId: "io.croquet.webshowcase.' . $sanitizedName . '",' . "\n" .
      '        apiKey: "' . $block_attributes['apiKey'] . '",' . "\n";
 
   $contents4 = <<<SHOWCASE
@@ -93,37 +102,44 @@ SHOWCASE;
 
 SHOWCASE;
 
+  $all_contents = $contents1 . $contents2 . $contents3 . $contents4;
   $minHeight = $block_attributes['minHeight'];
 
-  delete_if__exists(null, $filename);
+  $filename = $sanitizedName . '.html';
+  $tmp_filename = get_temp_dir() . 'showcase.html.tmp';
+  $src = delete_if__exists($all_contents, $filename);
 
-  $file = fopen($tmp_filename, 'w');
+  if (!$src) {
+    $file = fopen($tmp_filename, 'w');
 
-  if (!$file) {
-    echo "Error creating a temporary file";
-    return;
+    if (!$file) {
+      echo "Error creating a temporary file";
+      return;
+    }
+    $count = fwrite($file, $all_contents);
+    if (!$count) {
+      echo "Error writing into a temporary file";
+      return;
+    }
+    fclose($file);
+
+    $file_array = array();
+    $file_array['name'] = $filename;
+    $file_array['tmp_name'] = $tmp_filename;
+
+    $post = get_the_ID();
+
+    // do_action("qm/debug", '$post: ' . $post);
+
+    if (!$post) {
+      echo "Error getting the current post ID";
+      return;
+    }
+    $id = media_handle_sideload($file_array, 0, $filename);
+    $src = wp_get_attachment_url($id);
   }
-  $count = fwrite($file, $contents1 . $contents2 . $contents3 . $contents4);
-  if (!$count) {
-    echo "Error writing into a temporary file";
-    return;
-  }
-  fclose($file);
 
-  $file_array = array();
-  $file_array['name'] = 'showcase.html';
-  $file_array['tmp_name'] = $tmp_filename;
+  // do_action("qm/debug", '$src: ' . $src);
 
-  $post = get_the_ID();
-
-  if (!$post) {
-    echo "Error getting the current post ID";
-    return;
-  }
-
-  $id = media_handle_sideload( $file_array, 0, "showcase html");
-
-  $src = wp_get_attachment_url($id);
-
-  return '<div class="is-layout-flex showcase-container"><iframe width="100%" height=' . $minHeight . 'class="showcase-iframe" src="' . $src . '"/></div>';
+  return '<div class="is-layout-flex showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . '"/></div>';
 }

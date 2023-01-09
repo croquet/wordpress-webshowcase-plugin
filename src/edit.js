@@ -141,9 +141,22 @@ export default function Edit({ attributes, setAttributes }) {
         </Text>
     );
 
+    let showcaseMessage;
+    let showcaseMessageColor = "red";
+    if (showcaseName === "") {
+        showcaseMessage = "Please set Showcase Name in the side bar settings";
+    } else {
+        if (/^[A-Za-z0-9-]+$/.test(showcaseName)) {
+            showcaseMessage = "showcase name: " + showcaseName;
+            showcaseMessageColor = "black";
+        } else {
+            showcaseMessage = "Please use only alpha numeric characters and hyphens.";
+        }
+    }
+
     let showcaseNameText = (
-        <Text style={{marginRight: "10px"}} color={showcaseName === "" ? "red" : "black"} key={-2} align="right">
-            {showcaseName === "" ? "Please set Showcase Name in the side bar settings" : "showcase name: " + showcaseName}
+        <Text style={{marginRight: "10px"}} color={showcaseMessageColor} key={-2} align="right">
+            {showcaseMessage}
         </Text>
     );
 
@@ -199,8 +212,8 @@ export default function Edit({ attributes, setAttributes }) {
                 <VStack alignment={"top"}>
                     {[title, apiKeyText, showcaseNameText, <Divider key={-4}/>, ...rows, addButton]}
                 </VStack>
+                <DropZone onFilesDrop={onFilesDrop}/>
             </div>
-            <DropZone onFilesDrop={onFilesDrop}/>
             <InspectorControls>
                 <PanelBody title={"Settings"}>
                     <TextControl
