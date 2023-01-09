@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "title": "Croquet Metaverse Web Showcase",
     "category": "text",
-    "icon": "flag",
-    "description": "Croquet Web Showcase",
+    "icon": "admin-site",
+    "description": "Croquet Metaverse Web Showcase",
     "attributes": {
         "cardsString": {
             "type": "string",
@@ -32,7 +32,7 @@
     "supports": {
         "html": false
     },
-    "textdomain": "croquet",
+    "textdomain": "croquet-showcase",
     "editorScript": "file:./index.js",
     "editorStyle": "file:./index.css",
     "style": "file:./style-index.css"

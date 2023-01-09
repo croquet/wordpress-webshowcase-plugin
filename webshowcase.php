@@ -1,14 +1,18 @@
 <?php
 /**
- * Plugin Name:       Metaverse Web Showcase
- * Description:       Metaverse Web Showcase
+ * Plugin Name:       Croquet Metaverse Web Showcase
+ * Description:       Croquet Metaverse Web Showcase
  * Version:           1.0.0
- * Requires at least: 6.1
+ * Requires at least: 6.0
  * Requires PHP:      7.0
  * Author:            The Croquet Corporation
- * Text Domain:       croquet
+ * Plugin URI:        http://wordpress.org/plugins/croquet-showcase/
+ * Description:       Croquet Metaverse Web Showcase
+ * Author URI:        https://croquet.io/
+ * Text Domain:       croquet-showcase
+ * Domain Path:       /languages/
  *
- * @package           webshowcase-block
+ * @package           croquet-showcase
  */
 
 function webshowcase_dynamic_init() {
@@ -16,11 +20,29 @@ function webshowcase_dynamic_init() {
   require_once(ABSPATH . 'wp-admin/includes/file.php');
   require_once(ABSPATH . 'wp-admin/includes/image.php');
 
+/*
+   wp_register_script(
+    'croquet-showcase',
+     __DIR__ . '/build',
+     array('wp-i18n')
+   );
+*/
+
   register_block_type( __DIR__ . '/build', array(
     'render_callback' => 'webshowcase_dynamic_render_callback'));
 }
 
+/*
+function showcase_load_plugin_textdomain() {
+  load_plugin_textdomain("croquet-showcase", false, "languages");
+}
+*/
+
 add_action('init', 'webshowcase_dynamic_init');
+
+/*
+add_action('plugins_loaded', 'showcase_load_plugin_textdomain');
+*/
 
 function get_attachment_by_name($html_name) {
    $args = array(

@@ -18,35 +18,20 @@ You need to obtain a Croquet API Key, and update the value in the sidebar settin
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= What is Croquet Metaverse Web Showcase? =
 
-An answer to that question.
+The Croquet Metaverse Web Showcase is a simple way to have a collaborative 3D multiplayer environment.
 
-= What about foo bar? =
+= What does the plugin do? =
 
-Answer to foo bar dilemma.
+The WordPress plugin allows you to interactively specify what assets to use for a showcase and simply run a shared environment on your site.
+
+= How much does it cost? =
+
+It is free. You can obtain the Croquet API Key from https://croquet.io/keys and paste it in the sidebar settings panel.
+
 
 == Changelog ==
 
-= 0.1.0 =
-* Release
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
-
-== To Do ==
-
-- Investigate if BlockMover can be used for my own component, so that those lines can be moved with it.
-  If not, take the design of the button and add code.
-- Add delete button, and add add button.
-
-== Questions for Experts ==
-- Is having settings in side bar (as opposed to make them visible in the pane itself the way to go?
-- If We make a dropzone or file upload work, is it going to work across different installation to upload pdf and mov (or mp4) video files?
-- How do I get the current content of an asset file, and check if it is the same as the content it is going to create?
-- There are other DropZones already installed and my own cannot handle the drop event. Is there a common way to workaround?
-- The package.json and block.json may have some common convention people use. I'd like to get some review on that.
-- Or publshing a component, is it easy to register and submit but then not announce it widely until we do "alpha" test by ourselves and friends?
+= 1.0.0 =
+* The initial Release

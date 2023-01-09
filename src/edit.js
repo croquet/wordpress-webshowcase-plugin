@@ -1,8 +1,11 @@
 /**
- * WordPress components that create the necessary UI elements for the block
+ * The Croquet Web Showcase editor. It creates a list of "places" where you can put URLs.
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-components/
  */
+
+import {__} from '@wordpress/i18n';
+
 import {
     __experimentalHeading as Heading,
     Button,
@@ -33,8 +36,7 @@ import { uploadMedia } from "@wordpress/media-utils";
 import {useBlockProps} from '@wordpress/block-editor';
 
 /**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
+ * The Croquet Web Showcase editor. It creates a list of "places" where you can put URLs.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
@@ -133,24 +135,31 @@ export default function Edit({ attributes, setAttributes }) {
         setShowcaseName(val);
     };
 
-    let title = <Heading style={{alignSelf: "center"}} key={-5} level={4}>Croquet Web Showcase</Heading>;
+    let title = <Heading style={{alignSelf: "center"}} key={-5} level={4}>{__("Croquet Web Showcase", "croquet-showcase")}</Heading>;
 
+    let apiKeyMessage;
+    if (apiKey === "") {
+        apiKeyMessage = __("Please set API key in the side bar settings", "croquet-showcase");
+    } else {
+        apiKeyMessage =  __("apiKey: ", "croquet-showcase") + apiKey;
+    }
+    let apiKeyMessageColor = apiKey === "" ? "red" : "black";
     let apiKeyText = (
-        <Text style={{marginRight: "10px"}} color={apiKey === "" ? "red" : "black"} key={-1} align="right">
-            {apiKey === "" ? "Please set API key in the side bar settings" : "apiKey: " + apiKey}
+        <Text style={{marginRight: "10px"}} color={apiKeyMessageColor} key={-1} align="right">
+            {apiKeyMessage}
         </Text>
     );
 
     let showcaseMessage;
     let showcaseMessageColor = "red";
     if (showcaseName === "") {
-        showcaseMessage = "Please set Showcase Name in the side bar settings";
+        showcaseMessage = __("Please set Showcase Name in the side bar settings", "croquet-showcase");
     } else {
         if (/^[A-Za-z0-9-]+$/.test(showcaseName)) {
-            showcaseMessage = "showcase name: " + showcaseName;
+            showcaseMessage = __("showcase name: ", "croquet-showcase") + showcaseName;
             showcaseMessageColor = "black";
         } else {
-            showcaseMessage = "Please use only alpha numeric characters and hyphens.";
+            showcaseMessage = __("Please use only alpha numeric characters and hyphens.", "croquet-showcase");
         }
     }
 
@@ -217,15 +226,15 @@ export default function Edit({ attributes, setAttributes }) {
             <InspectorControls>
                 <PanelBody title={"Settings"}>
                     <TextControl
-                        label="Croquet API Key"
+                        label={__("Croquet API Key", "croquet-showcase")}
                         value={apiKey}
                         onChange={updateApiKey}/>
                     <TextControl
-                        label="Showcase Name"
+                        label={__("Showcase Name", "croquet-showcase")}
                         value={showcaseName}
                         onChange={updateShowcaseName}/>
                     <UnitControl
-                        label="Minimum Height"
+                        label={__("Minimum Height", "croquet-showcase")}
                         value={minHeight}
                         onChange={updateMinHeight}/>
                 </PanelBody>
@@ -249,14 +258,14 @@ function MediaRow({path, type, index, hasUp, hasDown, set, move, remove}) {
             <BlockMover hasUp={hasUp} hasDown={hasDown} move={move} index={index}/>
             <div className={"showcase-media-row-path"}>
                 <TextControl
-                    label={"path"}
+                    label={__("path")}
                     value={path}
                     onChange={onPathChange}
                 />
             </div>
             <div className={"showcase-media-row-type"}>
                 <ComboboxControl
-                    label="media type"
+                    label={__("media type")}
                     allowReset={false}
                     onChange={onTypeChange}
                     value={type}
