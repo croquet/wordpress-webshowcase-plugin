@@ -38,9 +38,9 @@ See https://croquet.io/webshowcase for more information.
 ## Screenshots
 
 1. The block editor view
-![The block editor view](.wordpress-org/editor.png)
+![The block editor view](.wordpress-org/screenshot-1.png)
 2. The 3D space created on your page
-![The 3D space created on your page](.wordpress-org/showcase.png)
+![The 3D space created on your page](.wordpress-org/screenshot-2.png)
 
 ## Frequently Asked Questions
 
