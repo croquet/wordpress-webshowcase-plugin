@@ -1,7 +1,7 @@
 # Croquet Metaverse Web Showcase
 Contributors:      yoshikiohshima
 Tags:              metaverse, 3d, multiuser
-Tested up to:      6.1.1
+Tested up to:      6.1.0
 Stable tag:        1.0.0
 License:           Apache 2.0
 License URI:       https://www.apache.org/licenses/LICENSE-2.0
