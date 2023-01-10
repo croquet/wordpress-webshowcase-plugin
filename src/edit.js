@@ -60,52 +60,52 @@ export default function Edit({ attributes, setAttributes }) {
         return newCards;
     };
 
-    let set = useCallback((item, index) => {
-        if (item && !item.type && item.path) {
-            item.type = getType(item.path);
-        }
-
-        let newCards = updateCards(item, index, cards);
-        renumberCards(newCards);
-        updateCardAttribute(newCards);
-    }, [cards]);
+    let set = (item, index) => {
+        updateCardAttributeWith((oldCards) => {
+            if (item && !item.type && item.path) {
+                item.type = getType(item.path);
+            }
+            return updateCards(item, index, oldCards);
+        });
+    };
 
     let get = useCallback((index) => {
         return cards[index];
     }, [cards]);
 
     let move = (dir, index) => {
-        let newCards = [...cards];
-        if (dir === "up") {
-            let t = newCards[index - 1];
-            newCards[index - 1] = newCards[index];
-            newCards[index] = t;
-
-            renumberCards(newCards);
-            updateCardAttribute(newCards);
-        } else if (dir === "down") {
-            let t = newCards[index + 1];
-            newCards[index + 1] = newCards[index];
-            newCards[index] = t;
-
-            renumberCards(newCards);
-            updateCardAttribute(newCards);
-        }
+        updateCardAttributeWith((oldCards) => {
+            let newCards = [...oldCards];
+            if (dir === "up") {
+                let t = newCards[index - 1];
+                newCards[index - 1] = newCards[index];
+                newCards[index] = t;
+                return newCards;
+            }
+            if (dir === "down") {
+                let t = newCards[index + 1];
+                newCards[index + 1] = newCards[index];
+                newCards[index] = t;
+                return newCards;
+            }
+        })
     };
 
     let add = (optObj) => {
-        if (cards.length === 9) {return;}
-        let newCards = [...cards];
-        newCards.push(optObj || {});
-        renumberCards(newCards);
-        updateCardAttribute(newCards);
+        updateCardAttributeWith((oldCards) => {
+            if (cards.length === 9) {return oldCards;}
+            let newCards = [...oldCards];
+            newCards.push(optObj || {});
+            return newCards;
+        });
     };
 
     let remove = (index) => {
-        let newCards = [...cards];
-        newCards.splice(index, 1);
-        renumberCards(newCards);
-        updateCardAttribute(newCards);
+        updateCardAttributeWith((oldCards) => {
+            let newCards = [...oldCards];
+            newCards.splice(index, 1);
+            return newCards;
+        });
     };
 
     let renumberCards = (newCards) => {
@@ -115,9 +115,13 @@ export default function Edit({ attributes, setAttributes }) {
         return newCards;
     };
 
-    let updateCardAttribute = (newCards) => {
-        setCards(newCards);
-        setAttributes({cardsString: JSON.stringify(newCards)});
+    let updateCardAttributeWith = (updater) => {
+        setCards((oldCards) => {
+            let newCards = updater(oldCards);
+            renumberCards(newCards);
+            setAttributes({cardsString: JSON.stringify(newCards)});
+            return newCards;
+        });
     };
 
     let updateApiKey = (val) => {
@@ -133,6 +137,41 @@ export default function Edit({ attributes, setAttributes }) {
     let updateShowcaseName = (val) => {
         setAttributes({showcaseName: val});
         setShowcaseName(val);
+    };
+
+    let handleFileChange = (files) => {
+        let hasAll = files.map((file) => file.id).reduce((total, current) => total && current, true);
+        if (!hasAll) {return;}
+        files.forEach((file) => {
+            if (file.id) {
+                let type = getType(file.url);
+                if (!type) {
+                    let mime_type = file.mime_type;
+                    if (mime_type.startsWith("image")) {
+                        type = "image";
+                    } else if (mime_type.startsWith("application/pdf")) {
+                        type = "pdf";
+                    } else if (mime_type.startsWith("video")) {
+                        type = "video";
+                    }
+                }
+                if (type) {
+                    add({path: file.url, type});
+                }
+            }
+        });
+    };
+
+    let handleFileError = (f) => {
+        console.error(f);
+    };
+
+    let onFilesDrop = (files) => {
+        uploadMedia({
+            filesList: files,
+            onFileChange: handleFileChange,
+            onError: handleFileError
+        });
     };
 
     let title = <Heading style={{alignSelf: "center"}} key={-5} level={4}>{__("Croquet Web Showcase", "croquet-showcase")}</Heading>;
@@ -181,39 +220,6 @@ export default function Edit({ attributes, setAttributes }) {
     ));
 
     let addButton = (<AddButton key={-3} visible={cards.length < 9} add={add}/>);
-
-    let handleFileChange = (files) => {
-        files.forEach((file) => {
-            if (file.id) {
-                let type = getType(file.url);
-                if (!type) {
-                    let mime_type = file.mime_type;
-                    if (mime_type.startsWith("image")) {
-                        type = "image";
-                    } else if (mime_type.startsWith("application/pdf")) {
-                        type = "pdf";
-                    } else if (mime_type.startsWith("video")) {
-                        type = "video";
-                    }
-                }
-                if (type) {
-                    add({path: file.url, type});
-                }
-            }
-        });
-    };
-
-    let handleFileError = (f) => {
-        console.error(f);
-    };
-
-    let onFilesDrop = (files) => {
-        uploadMedia({
-            filesList: files,
-            onFileChange: handleFileChange,
-            onError: handleFileError
-        });
-    };
 
     return (
         <>
