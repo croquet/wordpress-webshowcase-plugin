@@ -1,0 +1,56 @@
+# Copyright (C) 2023 The Croquet Corporation
+# This file is distributed under the same license as the Croquet Metaverse Web Showcase plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Croquet Metaverse Web Showcase 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/croquet-showcase\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-01-09T21:47:51+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.5.0-alpha\n"
+"X-Domain: croquet-showcase\n"
+
+#. Plugin Name of the plugin
+#. Description of the plugin
+msgid "Croquet Metaverse Web Showcase"
+msgstr ""
+
+#: src/edit.js:138
+msgid "Croquet Web Showcase"
+msgstr ""
+
+#: src/edit.js:142
+msgid "Please set API key in the side bar settings"
+msgstr ""
+
+#: src/edit.js:144
+msgid "apiKey: "
+msgstr ""
+
+#: src/edit.js:156
+msgid "Please set Showcase Name in the side bar settings"
+msgstr ""
+
+#: src/edit.js:159
+msgid "showcase name: "
+msgstr ""
+
+#: src/edit.js:162
+msgid "Please use only alpha numeric characters and hyphens."
+msgstr ""
+
+#: src/edit.js:229
+msgid "Croquet API Key"
+msgstr ""
+
+#: src/edit.js:233
+msgid "Showcase Name"
+msgstr ""
+
+#: src/edit.js:237
+msgid "Minimum Height"
+msgstr ""
