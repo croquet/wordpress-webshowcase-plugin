@@ -27,8 +27,8 @@ Visit [https://croquet.io/webshowcase](https://croquet.io/webshowcase) for more 
 * To use this plugin, you must obtain an API key from [https://croquet.io/keys](https://croquet.io/keys).
     * These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 * Croquet's website uses cookies as per our [Privacy Policy](https://croquet.io/privacy.html).
-* Croquet Corporation **does not** track users.
-* Croquet Corporation **cannot** see what assets are used in a Web Showcase.
+* Croquet Corporation does not track users.
+* Croquet Corporation does not store or control the assets used in a Web Showcase.
 * Users in the same session can see the avatars controlled by other users.
 * Users in the same session may join a spatialized voice chat to talk.
 
