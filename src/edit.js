@@ -71,7 +71,6 @@ export default function Edit({ attributes, setAttributes }) {
         setCards((oldCards) => {
             let newCards = updater(oldCards);
             renumberCards(newCards);
-            console.log({cardsString: JSON.stringify(newCards)});
             setAttributes({cardsString: JSON.stringify(newCards)});
             return newCards;
         });
@@ -109,7 +108,6 @@ export default function Edit({ attributes, setAttributes }) {
     }, [updateCardAttributeWith]);
 
     let add = useCallback((optObj) => {
-        console.log("add", optObj);
         updateCardAttributeWith((oldCards) => {
             if (cards.length === 9) {return oldCards;}
             let newCards = [...oldCards];
