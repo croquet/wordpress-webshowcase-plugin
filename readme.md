@@ -4,7 +4,7 @@
 
 |              | Data                              |
 |--------------------------|---------------------------------------------|
-| Contributors             | yoshikiohshima                              |
+| Contributors             | yoshikiohshima,zfox23                       |
 | Tags                     | metaverse, 3d, multiuser                    |
 | WordPress Version Tested | 6.1.0                                       |
 | Stable Tag               | 1.0.0                                       |
