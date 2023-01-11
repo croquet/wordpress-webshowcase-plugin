@@ -78,7 +78,7 @@ SHOWCASE;
 
   $sanitizedCards = "";
   foreach($decodedCards as $card) {
-    if ($card['path']) {
+    if (array_key_exists('path', $card)) {
       $encoded = json_encode($card, JSON_UNESCAPED_SLASHES);
       if (strlen($sanitizedCards) == 0) {
         $sanitizedCards = $encoded;

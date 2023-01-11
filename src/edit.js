@@ -60,20 +60,37 @@ export default function Edit({ attributes, setAttributes }) {
         return newCards;
     };
 
-    let set = (item, index) => {
+    let renumberCards = useCallback((newCards) => {
+        for (let i = 0; i < newCards.length; i++) {
+            newCards[i].place = i + 1;
+        }
+        return newCards;
+    }, []);
+
+    let updateCardAttributeWith = useCallback((updater) => {
+        setCards((oldCards) => {
+            let newCards = updater(oldCards);
+            renumberCards(newCards);
+            console.log({cardsString: JSON.stringify(newCards)});
+            setAttributes({cardsString: JSON.stringify(newCards)});
+            return newCards;
+        });
+    }, [renumberCards]);
+
+    let set = useCallback((item, index) => {
         updateCardAttributeWith((oldCards) => {
             if (item && !item.type && item.path) {
                 item.type = getType(item.path);
             }
             return updateCards(item, index, oldCards);
         });
-    };
+    }, [updateCardAttributeWith, updateCards]);
 
     let get = useCallback((index) => {
         return cards[index];
     }, [cards]);
 
-    let move = (dir, index) => {
+    let move = useCallback((dir, index) => {
         updateCardAttributeWith((oldCards) => {
             let newCards = [...oldCards];
             if (dir === "up") {
@@ -89,40 +106,25 @@ export default function Edit({ attributes, setAttributes }) {
                 return newCards;
             }
         })
-    };
+    }, [updateCardAttributeWith]);
 
-    let add = (optObj) => {
+    let add = useCallback((optObj) => {
+        console.log("add", optObj);
         updateCardAttributeWith((oldCards) => {
             if (cards.length === 9) {return oldCards;}
             let newCards = [...oldCards];
             newCards.push(optObj || {});
             return newCards;
         });
-    };
+    }, [updateCardAttributeWith]);
 
-    let remove = (index) => {
+    let remove = useCallback((index) => {
         updateCardAttributeWith((oldCards) => {
             let newCards = [...oldCards];
             newCards.splice(index, 1);
             return newCards;
         });
-    };
-
-    let renumberCards = (newCards) => {
-        for (let i = 0; i < newCards.length; i++) {
-            newCards[i].place = i + 1;
-        }
-        return newCards;
-    };
-
-    let updateCardAttributeWith = (updater) => {
-        setCards((oldCards) => {
-            let newCards = updater(oldCards);
-            renumberCards(newCards);
-            setAttributes({cardsString: JSON.stringify(newCards)});
-            return newCards;
-        });
-    };
+    }, [updateCardAttributeWith]);
 
     let updateApiKey = (val) => {
         setAttributes({apiKey: val});
@@ -147,9 +149,11 @@ export default function Edit({ attributes, setAttributes }) {
                 let type = getType(file.url);
                 if (!type) {
                     let mime_type = file.mime_type;
+                    /*
                     if (mime_type.startsWith("image")) {
                         type = "image";
-                    } else if (mime_type.startsWith("application/pdf")) {
+                        } else */
+                    if (mime_type.startsWith("application/pdf")) {
                         type = "pdf";
                     } else if (mime_type.startsWith("video")) {
                         type = "video";
@@ -219,7 +223,7 @@ export default function Edit({ attributes, setAttributes }) {
             remove={remove}/>
     ));
 
-    let addButton = (<AddButton key={-3} visible={cards.length < 9} add={add}/>);
+    let addButton = (<AddButton key={-6} visible={cards.length < 9} add={() => add()}/>);
 
     return (
         <>
@@ -349,15 +353,27 @@ function DeleteButton({index, remove}) {
 }
 
 function AddButton({add, visible}) {
-    let style = {width: "24px", height: "24px", alignSelf: "flex-end"};
+    let buttonStyle = {width: "24px", height: "24px"};
+    let style = {};
     if (!visible) {
         style.display = "none"
     }
 
+    let textStyle = {fontSize: "90%", marginLeft: "auto", marginRight: "auto"};
+
+    let dropMessage = (
+        <Text style={textStyle}>
+            {__("Drop a media file (PNG, JPEG, MP4, or PDF)", "croquet-showcase")}
+        </Text>
+    );
+
     return (
-        <Button variant="primary" style={style}
-            onClick={add}
-            icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z"></path></svg>}/>
+        <div className="showcase-add-row" style={style}>
+            {dropMessage}
+            <Button variant="primary" style={buttonStyle}
+                onClick={add}
+                icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z"></path></svg>}/>
+        </div>
     );
 }
 
