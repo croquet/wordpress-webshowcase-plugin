@@ -100,7 +100,7 @@ function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
 
   $filename = $sanitizedName . '.html';
   $tmp_filename = get_temp_dir() . 'showcase.html.tmp';
-  $src = webshowcase_delete_if__exists($all_contents, $filename);
+  $src = webshowcase_delete_if_exists($all_contents, $filename);
 
   if (!$src) {
     $src = webshowcase_create_src($tmp_filename, $filename, $all_contents);
@@ -139,7 +139,7 @@ function webshowcase_get_attachment_by_name($html_name) {
    return $get_attachment->posts[0];
 }
 
-function webshowcase_delete_if__exists($contents, $html_name) {
+function webshowcase_delete_if_exists($contents, $html_name) {
    $prev = webshowcase_get_attachment_by_name($html_name);
    if ($prev) {
      $file = file_get_contents($prev->guid);
