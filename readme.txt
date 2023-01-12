@@ -24,7 +24,7 @@ Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more informat
 
 = Manual installation =
 
-1. Download https://croquet.io/webshowcase/wordpress-showcase.zip.
+1. Download the [plugin ZIP file](https://croquet.io/webshowcase/wordpress-showcase.zip).
 2. Visit **Plugins > Add New > Upload Plugin**.
 3. Select the downloaded zip file, and activate the installed plugin.
 
@@ -35,7 +35,7 @@ Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more informat
 
 = What is Croquet Metaverse Web Showcase? =
 
-Croquet Metaverse Web Showcase(https://croquet.io/webshowcase) allows people to embed a multiuser, collaborative, 3D space into any website.
+[Croquet Metaverse Web Showcase](https://croquet.io/webshowcase) allows people to embed a multiuser, collaborative, 3D space into any website.
 
 = How much does it cost? =
 
