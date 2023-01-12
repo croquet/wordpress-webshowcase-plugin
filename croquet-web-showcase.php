@@ -59,93 +59,72 @@ add_action('plugins_loaded', 'showcase_load_plugin_textdomain');
 */
 
 function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
-  $contents1 = <<<SHOWCASE
+  $json = array();
+  $json['title'] = $block_attributes['showcaseName'];
+  $json['showcase'] = 'gallery'; // $block_attributes['showcase'];
+  $json['voiceChat'] = true; // $block_attributes['voiceChat'];
+    
+  $decodedCards = json_decode($block_attributes['cardsString'], true);
+  $sanitizedName = strtolower(preg_replace("/[^A-Za-z0-9-]+/", "", $block_attributes['showcaseName']));
+  $json['cards'] = array();
+
+  foreach($decodedCards as $card) {
+    if (array_key_exists('path', $card)) {
+      array_push($json['cards'], $card);
+    }
+  }
+
+  $json['appId'] = 'io.croquet.webshowcase.' . $sanitizedName;
+  $json['apiKey'] = $block_attributes['apiKey'];
+
+  $encoded = json_encode($json, JSON_UNESCAPED_SLASHES);
+
+  $contents1 = '
 <!DOCTYPE html>
 <html>
   <head><meta charset="utf-8"></head>
   <body>
     <script type="module">
       import {load} from "https://croquet.io/test/webshowcase/v1.js";
-      load({
-        title: "My Web Showcase", 
-        showcase: "gallery",
-        voiceChat: true,
+      load(
+';
 
-SHOWCASE;
-
-  $decodedCards = json_decode($block_attributes['cardsString'], true);
-  // do_action("qm/debug", $decodedCards);
-
-  $sanitizedCards = "";
-  foreach($decodedCards as $card) {
-    if (array_key_exists('path', $card)) {
-      $encoded = json_encode($card, JSON_UNESCAPED_SLASHES);
-      if (strlen($sanitizedCards) == 0) {
-        $sanitizedCards = $encoded;
-      } else {
-        $sanitizedCards = $sanitizedCards . ", " . $encoded;
-      }
-    }
-  }
-
-  $contents2 = '        cards: [' . $sanitizedCards . '],' . "\n";
-
-  $sanitizedName = strtolower(preg_replace("/[^A-Za-z0-9-]+/", "", $block_attributes['showcaseName']));
-
-  $contents3 = '        appId: "io.croquet.webshowcase.' . $sanitizedName . '",' . "\n" .
-     '        apiKey: "' . $block_attributes['apiKey'] . '",' . "\n";
-
-  $contents4 = <<<SHOWCASE
-      });
+  $contents2 = '
+      );
     </script>
   </body>
-</html>
+</html>';
 
-SHOWCASE;
-
-  $all_contents = $contents1 . $contents2 . $contents3 . $contents4;
+  $all_contents = $contents1 . $encoded . $contents2;
   $minHeight = $block_attributes['minHeight'];
 
   $filename = $sanitizedName . '.html';
   $tmp_filename = get_temp_dir() . 'showcase.html.tmp';
-  $src = delete_if__exists($all_contents, $filename);
+  $src = webshowcase_delete_if__exists($all_contents, $filename);
 
   if (!$src) {
-    $file = fopen($tmp_filename, 'w');
-
-    if (!$file) {
-      echo "Error creating a temporary file";
-      return;
-    }
-    $count = fwrite($file, $all_contents);
-    if (!$count) {
-      echo "Error writing into a temporary file";
-      return;
-    }
-    fclose($file);
-
-    $file_array = array();
-    $file_array['name'] = $filename;
-    $file_array['tmp_name'] = $tmp_filename;
-
-    $post = get_the_ID();
-
-    // do_action("qm/debug", '$post: ' . $post);
-
-    if (!$post) {
-      echo "Error getting the current post ID";
-      return;
-    }
-    $id = media_handle_sideload($file_array, 0, $filename);
-    $src = wp_get_attachment_url($id);
+    $src = webshowcase_create_src($tmp_filename, $filename, $all_contents);
   }
 
-  do_action("qm/debug", '$src: ' . $src);
+  if (!$src) {
+    echo "Error creating an asset";
+    return false;
+  }
 
-  return '<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . '?q=' . $sanitizedName . '#pw=1"></iframe></div>';
+  // do_action("qm/debug", '$src: ' . $src);
+
+  $result = wp_kses('<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . '?q=' . $sanitizedName . '#pw=1"></iframe></div>',
+    array(
+      'div' => array('class' => array()),
+      'iframe' => array('width' => array(), 'height' => array(), 'src' => array())
+    ));
+
+  // do_action("qm/debug", $result);
+
+  return $result;
 }
 
-function get_attachment_by_name($html_name) {
+function webshowcase_get_attachment_by_name($html_name) {
    $args = array(
      'posts_per_page' => 1,
      'post_type'      => 'attachment',
@@ -160,8 +139,8 @@ function get_attachment_by_name($html_name) {
    return $get_attachment->posts[0];
 }
 
-function delete_if__exists($contents, $html_name) {
-   $prev = get_attachment_by_name($html_name);
+function webshowcase_delete_if__exists($contents, $html_name) {
+   $prev = webshowcase_get_attachment_by_name($html_name);
    if ($prev) {
      $file = file_get_contents($prev->guid);
      /*
@@ -178,4 +157,35 @@ function delete_if__exists($contents, $html_name) {
      wp_delete_attachment($id, true);
    }
    return false;
+}
+
+function webshowcase_create_src($tmp_filename, $filename, $all_contents) {
+  $file = fopen($tmp_filename, 'w');
+
+  if (!$file) {
+    echo "Error creating a temporary file";
+    return false;
+  }
+
+  $count = fwrite($file, $all_contents);
+  if (!$count) {
+    echo "Error writing into a temporary file";
+    return false;
+  }
+  fclose($file);
+
+  $file_array = array();
+  $file_array['name'] = $filename;
+  $file_array['tmp_name'] = $tmp_filename;
+
+  $post = get_the_ID();
+
+  // do_action("qm/debug", '$post: ' . $post);
+
+  if (!$post) {
+    echo "Error getting the current post ID";
+    return;
+  }
+  $id = media_handle_sideload($file_array, 0, $filename);
+  return wp_get_attachment_url($id);
 }
