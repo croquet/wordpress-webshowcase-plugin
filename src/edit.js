@@ -357,7 +357,7 @@ function AddButton({add, visible}) {
         style.display = "none"
     }
 
-    let textStyle = {fontSize: "90%", marginLeft: "auto", marginRight: "auto"};
+    let textStyle = {fontSize: "90%", marginLeft: "auto", marginRight: "auto", paddingLeft: "36px"};
 
     let dropMessage = (
         <Text style={textStyle}>

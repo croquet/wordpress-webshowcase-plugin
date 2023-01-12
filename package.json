@@ -1,6 +1,6 @@
 {
 	"name": "croquet-web-showcase",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Croquet Metaverse Web Showcase",
 	"author": "The Croquet Corporation",
 	"main": "build/index.js",

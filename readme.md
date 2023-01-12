@@ -7,7 +7,7 @@
 | Contributors             | yoshikiohshima,zfox23                       |
 | Tags                     | metaverse, 3d, multiuser                    |
 | WordPress Version Tested | 6.1.0                                       |
-| Stable Tag               | 1.0.0                                       |
+| Stable Tag               | 1.0.1                                       |
 | License                  | Apache 2.0                                  |
 | License URI              | [https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0) |
 
@@ -67,5 +67,8 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 ## Changelog
 
+### 1.0.1
+* Code style changes.
+
 ### 1.0.0
-* The initial release 🎉
+* The initial submission 🎉

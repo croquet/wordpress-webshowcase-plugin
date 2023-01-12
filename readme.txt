@@ -2,7 +2,7 @@
 Contributors:      yoshikiohshima,zfox23
 Tags:              metaverse, 3d, multiuser
 Tested up to:      6.1.0
-Stable tag:        1.0.0
+Stable tag:        1.0.1
 License:           Apache 2.0
 License URI:       https://www.apache.org/licenses/LICENSE-2.0
 
@@ -53,5 +53,8 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 == Changelog ==
 
+= 1.0.1 =
+* Code style changes.
+
 = 1.0.0 =
-* The initial Release
+* The initial Release.
