@@ -127,7 +127,7 @@ function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
       'iframe' => array('width' => array(), 'height' => array(), 'src' => array())
     ));
 
-  do_action("qm/debug", $result);
+  // do_action("qm/debug", $result);
 
   return $result;
 }
