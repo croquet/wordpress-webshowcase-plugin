@@ -183,7 +183,11 @@ export default function Edit({ attributes, setAttributes }) {
     };
 
     let handleFileError = (f) => {
-        setShowingNotice("An error occurrd");
+        if (f && f.message) {
+            setShowingNotice(f.message);
+        } else {
+            setShowingNotice(__("An error occurrd", "croquet-showcase"));
+        }
         console.error(f);
     };
 
