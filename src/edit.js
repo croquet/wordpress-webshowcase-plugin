@@ -24,7 +24,7 @@ import {
     InspectorControls
 } from '@wordpress/block-editor';
 
-import {useState, useCallback} from "@wordpress/element";
+import {useState, useCallback, useEffect} from "@wordpress/element";
 
 import { uploadMedia } from "@wordpress/media-utils";
 
@@ -74,10 +74,13 @@ export default function Edit({ attributes, setAttributes }) {
             let newCards = updater(oldCards);
             if (newCards === oldCards) {return oldCards;}
             renumberCards(newCards);
-            setAttributes({cardsString: JSON.stringify(newCards)});
             return newCards;
         });
     }, [renumberCards, setAttributes]);
+
+    useEffect(() => {
+        setAttributes({cardsString: JSON.stringify(cards)});
+    }, [cards]);
 
     let set = useCallback((item, index) => {
         updateCardAttributeWith((oldCards) => {
@@ -110,16 +113,19 @@ export default function Edit({ attributes, setAttributes }) {
         })
     }, [updateCardAttributeWith]);
 
-    let add = useCallback((optObj) => {
+    let add = useCallback((optObjArray) => {
         updateCardAttributeWith((oldCards) => {
-            console.log("len 1", oldCards.length);
-            if (oldCards.length === 9) {
-                console.log("setShowingNotice");
+            if (!optObjArray && oldCards.length === 9 ||
+                optObjArray && oldCards.length + optObjArray.length > 9) {
                 setShowingNotice("you cannot have more than 9 assets");
                 return oldCards;
             }
             let newCards = [...oldCards];
-            newCards.push(optObj || {});
+            if (!optObjArray) {
+                newCards.push({});
+            } else {
+                newCards = [...newCards, ...optObjArray];
+            }
             return newCards;
         });
     }, [updateCardAttributeWith]);
@@ -128,9 +134,7 @@ export default function Edit({ attributes, setAttributes }) {
         updateCardAttributeWith((oldCards) => {
             let newCards = [...oldCards];
             newCards.splice(index, 1);
-            console.log(showingNotice);
             if (showingNotice) {
-                console.log("setShowingNotice");
                 setShowingNotice(false);
             }
             return newCards;
@@ -155,26 +159,27 @@ export default function Edit({ attributes, setAttributes }) {
     let handleFileChange = (files) => {
         let hasAll = files.map((file) => file.id).reduce((total, current) => total && current, true);
         if (!hasAll) {return;}
-        files.forEach((file) => {
-            if (file.id) {
-                let type = getType(file.url);
-                if (!type) {
-                    let mime_type = file.mime_type;
-                    /*
-                    if (mime_type.startsWith("image")) {
-                        type = "image";
-                        } else */
-                    if (mime_type.startsWith("application/pdf")) {
-                        type = "pdf";
-                    } else if (mime_type.startsWith("video")) {
-                        type = "video";
-                    }
-                }
-                if (type) {
-                    add({path: file.url, type});
+        let entries = files.map((file) => {
+            let type = getType(file.url);
+            if (!type) {
+                let mime_type = file.mime_type;
+                /*
+                  if (mime_type.startsWith("image")) {
+                  type = "image";
+                  } else */
+                if (mime_type.startsWith("application/pdf")) {
+                    type = "pdf";
+                } else if (mime_type.startsWith("video")) {
+                    type = "video";
                 }
             }
+            if (type) {
+                return {path: file.url, type};
+            }
+            return null;
         });
+        entries = entries.filter(e => e);
+        add(entries);
     };
 
     let handleFileError = (f) => {
@@ -238,14 +243,12 @@ export default function Edit({ attributes, setAttributes }) {
     let addButton = (<AddButton key={-6} visible={cards.length < 9} add={() => add()}/>);
 
     let noticeDismiss = () => {
-        console.log("setShowingNotice");
         setShowingNotice(false);
     };
 
     let stack = [title, apiKeyText, showcaseNameText, <Divider key={-4}/>, ...rows, addButton];
 
     if (showingNotice) {
-        console.log("addNotice");
         let notice = <Notice key={-7} onDismiss={noticeDismiss} status="error" >{showingNotice}</Notice>;
         stack.push(notice);
     }
