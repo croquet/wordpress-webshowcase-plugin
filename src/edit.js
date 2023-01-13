@@ -16,7 +16,8 @@ import {
     ComboboxControl,
     __experimentalText as Text,
     PanelBody,
-    DropZone
+    DropZone,
+    Notice
 } from '@wordpress/components';
 
 import {
@@ -53,6 +54,7 @@ export default function Edit({ attributes, setAttributes }) {
     let [minHeight, setMinHeight] = useState(attributes.minHeight);
     let [apiKey, setApiKey] = useState(attributes.apiKey);
     let [showcaseName, setShowcaseName] = useState(attributes.showcaseName);
+    let [showingNotice, setShowingNotice] = useState(false);
 
     let updateCards = (item, index, cardsArray) => {
         let newCards = [...cardsArray];
@@ -70,11 +72,12 @@ export default function Edit({ attributes, setAttributes }) {
     let updateCardAttributeWith = useCallback((updater) => {
         setCards((oldCards) => {
             let newCards = updater(oldCards);
+            if (newCards === oldCards) {return oldCards;}
             renumberCards(newCards);
             setAttributes({cardsString: JSON.stringify(newCards)});
             return newCards;
         });
-    }, [renumberCards]);
+    }, [renumberCards, setAttributes]);
 
     let set = useCallback((item, index) => {
         updateCardAttributeWith((oldCards) => {
@@ -109,7 +112,12 @@ export default function Edit({ attributes, setAttributes }) {
 
     let add = useCallback((optObj) => {
         updateCardAttributeWith((oldCards) => {
-            if (cards.length === 9) {return oldCards;}
+            console.log("len 1", oldCards.length);
+            if (oldCards.length === 9) {
+                console.log("setShowingNotice");
+                setShowingNotice("you cannot have more than 9 assets");
+                return oldCards;
+            }
             let newCards = [...oldCards];
             newCards.push(optObj || {});
             return newCards;
@@ -120,9 +128,14 @@ export default function Edit({ attributes, setAttributes }) {
         updateCardAttributeWith((oldCards) => {
             let newCards = [...oldCards];
             newCards.splice(index, 1);
+            console.log(showingNotice);
+            if (showingNotice) {
+                console.log("setShowingNotice");
+                setShowingNotice(false);
+            }
             return newCards;
         });
-    }, [updateCardAttributeWith]);
+    }, [updateCardAttributeWith, showingNotice]);
 
     let updateApiKey = (val) => {
         setAttributes({apiKey: val});
@@ -165,6 +178,7 @@ export default function Edit({ attributes, setAttributes }) {
     };
 
     let handleFileError = (f) => {
+        setShowingNotice("An error occurrd");
         console.error(f);
     };
 
@@ -223,11 +237,24 @@ export default function Edit({ attributes, setAttributes }) {
 
     let addButton = (<AddButton key={-6} visible={cards.length < 9} add={() => add()}/>);
 
+    let noticeDismiss = () => {
+        console.log("setShowingNotice");
+        setShowingNotice(false);
+    };
+
+    let stack = [title, apiKeyText, showcaseNameText, <Divider key={-4}/>, ...rows, addButton];
+
+    if (showingNotice) {
+        console.log("addNotice");
+        let notice = <Notice key={-7} onDismiss={noticeDismiss} status="error" >{showingNotice}</Notice>;
+        stack.push(notice);
+    }
+
     return (
         <>
             <div className="showcase-container" { ...blockProps} style={{minHeight, border: "1px solid #757575"}}>
                 <VStack alignment={"top"}>
-                    {[title, apiKeyText, showcaseNameText, <Divider key={-4}/>, ...rows, addButton]}
+                    {stack}
                 </VStack>
                 <DropZone onFilesDrop={onFilesDrop}/>
             </div>
