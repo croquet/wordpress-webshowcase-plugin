@@ -2,7 +2,7 @@
 Contributors:      yoshikiohshima,zfox23
 Tags:              metaverse, 3d, multiuser
 Tested up to:      6.1.0
-Stable tag:        1.0.1
+Stable tag:        1.0.2
 License:           Apache 2.0
 License URI:       https://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,6 +31,24 @@ Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more informat
 = After activation = 
 1. Visit [https://croquet.io/keys](https://croquet.io/keys) and create a production API Key. These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 
+== Settings ==
+
+= Croquet API Key =
+
+The key is used to access the Croquet Reflector network.
+
+= Showcase name =
+
+A name that identifies the Web Showcase instance. Set a unique name for an instance if you would like to have multiple instances of Showcases that uses the same API Key.
+
+= Create a unique session per visit =
+
+When true, a visitor goes into a new Showcase session when they open the WordPress page. When false, they go into the same session. You can still share the session by clicking on the three bar menu within the Shwocase instance and scan the QR code or share the internal link.
+
+= Voice Chat =
+
+When true, and if the WordPress is hosted on a secure HTTP connection, the voice chat can be used.
+
 == Frequently Asked Questions ==
 
 = What is Croquet Metaverse Web Showcase? =
@@ -53,8 +71,14 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 == Changelog ==
 
+= 1.0.2
+
+* Add more settings. Handle errors better.
+
 = 1.0.1 =
+
 * Code style changes.
 
 = 1.0.0 =
+
 * The initial Release.

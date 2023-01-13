@@ -2,12 +2,12 @@
 
 # Croquet Metaverse Web Showcase - WordPress Plugin
 
-|              | Data                              |
+|                          | Data                                        |
 |--------------------------|---------------------------------------------|
 | Contributors             | yoshikiohshima,zfox23                       |
 | Tags                     | metaverse, 3d, multiuser                    |
 | WordPress Version Tested | 6.1.0                                       |
-| Stable Tag               | 1.0.1                                       |
+| Stable Tag               | 1.0.2                                       |
 | License                  | Apache 2.0                                  |
 | License URI              | [https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0) |
 
@@ -40,6 +40,24 @@ Visit [https://croquet.io/webshowcase](https://croquet.io/webshowcase) for more 
 4. Remove the default Showcase contents provided by the plugin with the X buttons.
 5. Add your own image/video/PDF content by specifying the URL of the asset or by dragging and dropping a file into the block.
 
+## Settings
+
+### Croquet API Key
+
+The key is used to access the Croquet Reflector network.
+
+### Showcase name
+
+A name that identifies the Web Showcase instance. Set a unique name for an instance if you would like to have multiple instances of Showcases that uses the same API Key.
+
+### Create a unique session per visit
+
+When true, a visitor goes into a new Showcase session when they open the WordPress page. When false, they go into the same session. You can still share the session by clicking on the three bar menu within the Shwocase instance and scan the QR code or share the internal link.
+
+### Voice Chat
+
+When true, and if the WordPress is hosted on a secure HTTP connection, the voice chat can be used.
+
 ## Screenshots
 
 ### The Block Editor View
@@ -66,6 +84,9 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 
 ## Changelog
+
+### 1.0.2
+* Add more settings. Handle errors better.
 
 ### 1.0.1
 * Code style changes.
