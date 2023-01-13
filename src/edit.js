@@ -7,14 +7,15 @@
 import {__} from '@wordpress/i18n';
 
 import {
-    __experimentalHeading as Heading,
     Button,
     TextControl,
+    ComboboxControl,
+    ToggleControl,
     __experimentalVStack as VStack,
     __experimentalUnitControl as UnitControl,
     __experimentalDivider as Divider,
-    ComboboxControl,
     __experimentalText as Text,
+    __experimentalHeading as Heading,
     PanelBody,
     DropZone,
     Notice
@@ -54,18 +55,13 @@ export default function Edit({ attributes, setAttributes }) {
     let [minHeight, setMinHeight] = useState(attributes.minHeight);
     let [apiKey, setApiKey] = useState(attributes.apiKey);
     let [showcaseName, setShowcaseName] = useState(attributes.showcaseName);
+    let [uniqueSessionPerVisit, setUniqueSessionPerVisit] = useState(attributes.uniqueSessionPerVisit);
+    let [voiceChat, setVoiceChat] = useState(attributes.voiceChat);
     let [showingNotice, setShowingNotice] = useState(false);
 
-    let updateCards = (item, index, cardsArray) => {
+    let updateCards = useCallback((item, index, cardsArray) => {
         let newCards = [...cardsArray];
         newCards[index] = item;
-        return newCards;
-    };
-
-    let renumberCards = useCallback((newCards) => {
-        for (let i = 0; i < newCards.length; i++) {
-            newCards[i].place = i + 1;
-        }
         return newCards;
     }, []);
 
@@ -73,10 +69,12 @@ export default function Edit({ attributes, setAttributes }) {
         setCards((oldCards) => {
             let newCards = updater(oldCards);
             if (newCards === oldCards) {return oldCards;}
-            renumberCards(newCards);
+            for (let i = 0; i < newCards.length; i++) {
+                newCards[i].place = i + 1;
+            }
             return newCards;
         });
-    }, [renumberCards, setAttributes]);
+    }, []);
 
     useEffect(() => {
         setAttributes({cardsString: JSON.stringify(cards)});
@@ -154,6 +152,16 @@ export default function Edit({ attributes, setAttributes }) {
     let updateShowcaseName = (val) => {
         setAttributes({showcaseName: val});
         setShowcaseName(val);
+    };
+
+    let updateUniqueSessionPerVisit = (val) => {
+        setAttributes({uniqueSessionPerVisit: val});
+        setUniqueSessionPerVisit(val);
+    };
+
+    let updateVoiceChat = (val) => {
+        setAttributes({voiceChat: val});
+        setVoiceChat(val);
     };
 
     let handleFileChange = (files) => {
@@ -275,6 +283,14 @@ export default function Edit({ attributes, setAttributes }) {
                         label={__("Showcase Name", "croquet-showcase")}
                         value={showcaseName}
                         onChange={updateShowcaseName}/>
+                    <ToggleControl
+                        label={__("Create a unique session per visit", "croquet-showcase")}
+                        checked={uniqueSessionPerVisit}
+                        onChange={updateUniqueSessionPerVisit}/>
+                    <ToggleControl
+                        label={__("Enable Dolby spatial voice chat", "croquet-showcase")}
+                        checked={voiceChat}
+                        onChange={updateVoiceChat}/>
                     <UnitControl
                         label={__("Minimum Height", "croquet-showcase")}
                         value={minHeight}

@@ -62,7 +62,7 @@ function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
   $json = array();
   $json['title'] = $block_attributes['showcaseName'];
   $json['showcase'] = 'gallery'; // $block_attributes['showcase'];
-  $json['voiceChat'] = true; // $block_attributes['voiceChat'];
+  $json['voiceChat'] = $block_attributes['voiceChat'];
     
   $decodedCards = json_decode($block_attributes['cardsString'], true);
   $sanitizedName = strtolower(preg_replace("/[^A-Za-z0-9-]+/", "", $block_attributes['showcaseName']));
@@ -113,13 +113,21 @@ function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
 
   // do_action("qm/debug", '$src: ' . $src);
 
-  $result = wp_kses('<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . '?q=' . $sanitizedName . '#pw=1"></iframe></div>',
+  $uniqueSessionPerVisit = $block_attributes['uniqueSessionPerVisit'];
+  
+  if ($uniqueSessionPerVisit) {
+    $sessionKey = '';
+  } else {
+    $sessionKey = '?q=' . $sanitizedName . '#pw=1';
+  }
+
+  $result = wp_kses('<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . $sessionKey . '"></iframe></div>',
     array(
       'div' => array('class' => array()),
       'iframe' => array('width' => array(), 'height' => array(), 'src' => array())
     ));
 
-  // do_action("qm/debug", $result);
+  do_action("qm/debug", $result);
 
   return $result;
 }

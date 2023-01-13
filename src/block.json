@@ -27,6 +27,16 @@
             "type": "string",
             "selector": "div",
             "default": "my-showcase"
+        },
+        "voiceChat": {
+            "type": "boolean",
+            "selector": "div",
+            "default": true
+        },
+        "uniqueSessionPerVisit": {
+            "type": "boolean",
+            "selector": "div",
+            "default": false
         }
     },
     "supports": {
