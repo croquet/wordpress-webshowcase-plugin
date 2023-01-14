@@ -21,7 +21,7 @@
   * not enabled yet
 */
 
-function webshowcase_dynamic_init() {
+function croquet_metaverse_web_showcase_dynamic_init() {
   require_once(ABSPATH . 'wp-admin/includes/media.php');
   require_once(ABSPATH . 'wp-admin/includes/file.php');
   require_once(ABSPATH . 'wp-admin/includes/image.php');
@@ -33,15 +33,15 @@ function webshowcase_dynamic_init() {
   );
 
   register_block_type( __DIR__ . '/build', array(
-    'render_callback' => 'webshowcase_dynamic_render_callback'));
+    'render_callback' => 'croquet_metaverse_web_showcase_dynamic_render_callback'));
 }
 
-function webshowcase_load_textdomain() {
+function croquet_metaverse_web_showcase_load_textdomain() {
   load_plugin_textdomain("croquet-metaverse-web-showcase", false, dirname(plugin_basename(__FILE__)) ."languages");
 }
 
-add_action('init', 'webshowcase_dynamic_init');
-add_action('init', 'webshowcase_load_textdomain');
+add_action('init', 'croquet_metaverse_web_showcase_dynamic_init');
+add_action('init', 'croquet_metaverse_web_showcase_load_textdomain');
 
 /**
   * The entry point of the callback. It generates a simple HTML file by concatenating fragments
@@ -51,7 +51,7 @@ add_action('init', 'webshowcase_load_textdomain');
   * that uses the URL as src for an iframe.
 */
 
-function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
+function croquet_metaverse_web_showcase_dynamic_render_callback( $block_attributes, $content ) {
   $json = array();
   $json['title'] = $block_attributes['showcaseName'];
   $json['showcase'] = 'gallery'; // $block_attributes['showcase'];
@@ -93,10 +93,10 @@ function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
 
   $filename = $sanitizedName . '.html';
   $tmp_filename = get_temp_dir() . 'showcase.html.tmp';
-  $src = webshowcase_delete_if_exists($all_contents, $filename);
+  $src = croquet_metaverse_web_showcase_delete_if_exists($all_contents, $filename);
 
   if (!$src) {
-    $src = webshowcase_create_src($tmp_filename, $filename, $all_contents);
+    $src = croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $all_contents);
   }
 
   if (!$src) {
@@ -125,7 +125,7 @@ function webshowcase_dynamic_render_callback( $block_attributes, $content ) {
   return $result;
 }
 
-function webshowcase_get_attachment_by_name($html_name) {
+function croquet_metaverse_web_showcase_get_attachment_by_name($html_name) {
    $args = array(
      'posts_per_page' => 1,
      'post_type'      => 'attachment',
@@ -140,8 +140,8 @@ function webshowcase_get_attachment_by_name($html_name) {
    return $get_attachment->posts[0];
 }
 
-function webshowcase_delete_if_exists($contents, $html_name) {
-   $prev = webshowcase_get_attachment_by_name($html_name);
+function croquet_metaverse_web_showcase_delete_if_exists($contents, $html_name) {
+   $prev = croquet_metaverse_web_showcase_get_attachment_by_name($html_name);
    if ($prev) {
      $file = file_get_contents($prev->guid);
      /*
@@ -160,7 +160,7 @@ function webshowcase_delete_if_exists($contents, $html_name) {
    return false;
 }
 
-function webshowcase_create_src($tmp_filename, $filename, $all_contents) {
+function croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $all_contents) {
   $file = fopen($tmp_filename, 'w');
 
   if (!$file) {
