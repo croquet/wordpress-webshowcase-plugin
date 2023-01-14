@@ -11,7 +11,7 @@
  * Author URI:        https://croquet.io/
  * License:           Apache-2.0
  * License URI:       https://www.apache.org/licenses/LICENSE-2.0
- * Text Domain:       croquet-showcase
+ * Text Domain:       croquet-metaverse-web-showcase
  * Domain Path:       /languages
 
  */
@@ -38,17 +38,12 @@ function webshowcase_dynamic_init() {
     'render_callback' => 'webshowcase_dynamic_render_callback'));
 }
 
-/*
-function showcase_load_plugin_textdomain() {
-  load_plugin_textdomain("croquet-showcase", false, "languages");
+function webshowcase_load_textdomain() {
+  load_plugin_textdomain("croquet-metaverse-web-showcase", false, dirname(plugin_basename(__FILE__)) ."languages");
 }
-*/
 
 add_action('init', 'webshowcase_dynamic_init');
-
-/*
-add_action('plugins_loaded', 'showcase_load_plugin_textdomain');
-*/
+add_action('init', 'webshowcase_load_plugin_textdomain');
 
 /**
   * The entry point of the callback. It generates a simple HTML file by concatenating fragments

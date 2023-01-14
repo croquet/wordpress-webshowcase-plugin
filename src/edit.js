@@ -194,7 +194,7 @@ export default function Edit({ attributes, setAttributes }) {
         if (f && f.message) {
             setShowingNotice(f.message);
         } else {
-            setShowingNotice(__("An error occurrd", "croquet-showcase"));
+            setShowingNotice(__("An error occurrd", "croquet-metaverse-web-showcase"));
         }
         console.error(f);
     };
@@ -207,13 +207,13 @@ export default function Edit({ attributes, setAttributes }) {
         });
     };
 
-    let title = <Heading style={{alignSelf: "center"}} key={-5} level={4}>{__("Croquet Web Showcase", "croquet-showcase")}</Heading>;
+    let title = <Heading style={{alignSelf: "center"}} key={-5} level={4}>{__("Croquet Web Showcase", "croquet-metaverse-web-showcase")}</Heading>;
 
     let apiKeyMessage;
     if (apiKey === "") {
-        apiKeyMessage = __("Please set API key in the side bar settings", "croquet-showcase");
+        apiKeyMessage = __("Please set API key in the side bar settings", "croquet-metaverse-web-showcase");
     } else {
-        apiKeyMessage =  __("apiKey: ", "croquet-showcase") + apiKey;
+        apiKeyMessage =  __("apiKey: ", "croquet-metaverse-web-showcase") + apiKey;
     }
     let apiKeyMessageColor = apiKey === "" ? "red" : "black";
     let apiKeyText = (
@@ -225,13 +225,13 @@ export default function Edit({ attributes, setAttributes }) {
     let showcaseMessage;
     let showcaseMessageColor = "red";
     if (showcaseName === "") {
-        showcaseMessage = __("Please set Showcase Name in the side bar settings", "croquet-showcase");
+        showcaseMessage = __("Please set Showcase Name in the side bar settings", "croquet-metaverse-web-showcase");
     } else {
         if (/^[A-Za-z0-9-]+$/.test(showcaseName)) {
-            showcaseMessage = __("showcase name: ", "croquet-showcase") + showcaseName;
+            showcaseMessage = __("showcase name: ", "croquet-metaverse-web-showcase") + showcaseName;
             showcaseMessageColor = "black";
         } else {
-            showcaseMessage = __("Please use only alpha numeric characters and hyphens.", "croquet-showcase");
+            showcaseMessage = __("Please use only alpha numeric characters and hyphens.", "croquet-metaverse-web-showcase");
         }
     }
 
@@ -276,23 +276,23 @@ export default function Edit({ attributes, setAttributes }) {
             <InspectorControls>
                 <PanelBody title={"Settings"}>
                     <TextControl
-                        label={__("Croquet API Key", "croquet-showcase")}
+                        label={__("Croquet API Key", "croquet-metaverse-web-showcase")}
                         value={apiKey}
                         onChange={updateApiKey}/>
                     <TextControl
-                        label={__("Showcase Name", "croquet-showcase")}
+                        label={__("Showcase Name", "croquet-metaverse-web-showcase")}
                         value={showcaseName}
                         onChange={updateShowcaseName}/>
                     <ToggleControl
-                        label={__("Create a unique session per visit", "croquet-showcase")}
+                        label={__("Create a unique session per visit", "croquet-metaverse-web-showcase")}
                         checked={uniqueSessionPerVisit}
                         onChange={updateUniqueSessionPerVisit}/>
                     <ToggleControl
-                        label={__("Enable Dolby spatial voice chat", "croquet-showcase")}
+                        label={__("Enable Dolby spatial voice chat", "croquet-metaverse-web-showcase")}
                         checked={voiceChat}
                         onChange={updateVoiceChat}/>
                     <UnitControl
-                        label={__("Minimum Height", "croquet-showcase")}
+                        label={__("Minimum Height", "croquet-metaverse-web-showcase")}
                         value={minHeight}
                         onChange={updateMinHeight}/>
                 </PanelBody>
@@ -411,7 +411,7 @@ function AddButton({add, visible}) {
 
     let dropMessage = (
         <Text style={textStyle}>
-            {__("Drop a media file (PNG, JPEG, MP4, or PDF)", "croquet-showcase")}
+            {__("Drop a media file (PNG, JPEG, MP4, or PDF)", "croquet-metaverse-web-showcase")}
         </Text>
     );
 

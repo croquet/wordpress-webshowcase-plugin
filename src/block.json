@@ -42,7 +42,7 @@
     "supports": {
         "html": false
     },
-    "textdomain": "croquet-showcase",
+    "textdomain": "croquet-metaverse-web-showcase",
     "editorScript": "file:./index.js",
     "editorStyle": "file:./index.css",
     "style": "file:./style-index.css"
