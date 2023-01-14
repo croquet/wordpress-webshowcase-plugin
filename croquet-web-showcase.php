@@ -26,13 +26,11 @@ function webshowcase_dynamic_init() {
   require_once(ABSPATH . 'wp-admin/includes/file.php');
   require_once(ABSPATH . 'wp-admin/includes/image.php');
 
-  /*
-    wp_register_script(
-    'croquet-showcase',
+   wp_register_script(
+    'croquet-metaverse-web-showcase-script',
      __DIR__ . '/build',
-     array('wp-i18n')
+     array('wp-blocks', 'wp-element', 'wp-i18n', 'wp-block-editor')
   );
-  */
 
   register_block_type( __DIR__ . '/build', array(
     'render_callback' => 'webshowcase_dynamic_render_callback'));
@@ -43,7 +41,7 @@ function webshowcase_load_textdomain() {
 }
 
 add_action('init', 'webshowcase_dynamic_init');
-add_action('init', 'webshowcase_load_plugin_textdomain');
+add_action('init', 'webshowcase_load_textdomain');
 
 /**
   * The entry point of the callback. It generates a simple HTML file by concatenating fragments
