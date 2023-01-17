@@ -1,57 +1,84 @@
 # Copyright (C) 2023 The Croquet Corporation
-# This file is distributed under the same license as the Croquet Metaverse Web Showcase plugin.
+# This file is distributed under the Apache-2.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Croquet Metaverse Web Showcase 1.0.0\n"
+"Project-Id-Version: Croquet Metaverse Web Showcase 1.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/croquet-showcase\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-09T21:47:51+00:00\n"
+"POT-Creation-Date: 2023-01-17T23:41:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0-alpha\n"
-"X-Domain: croquet-showcase\n"
+"X-Domain: croquet-metaverse-web-showcase\n"
 
 #. Plugin Name of the plugin
 #. Description of the plugin
 msgid "Croquet Metaverse Web Showcase"
 msgstr ""
 
-#: src/edit.js:138
+#. Plugin URI of the plugin
+msgid "https://croquet.io/webshowcase"
+msgstr ""
+
+#. Author of the plugin
+msgid "The Croquet Corporation"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://croquet.io/"
+msgstr ""
+
+#: src/edit.js:197
+msgid "An error occurrd"
+msgstr ""
+
+#: src/edit.js:210
 msgid "Croquet Web Showcase"
 msgstr ""
 
-#: src/edit.js:142
+#: src/edit.js:214
 msgid "Please set API key in the side bar settings"
 msgstr ""
 
-#: src/edit.js:144
+#: src/edit.js:216
 msgid "apiKey: "
 msgstr ""
 
-#: src/edit.js:156
+#: src/edit.js:228
 msgid "Please set Showcase Name in the side bar settings"
 msgstr ""
 
-#: src/edit.js:159
+#: src/edit.js:231
 msgid "showcase name: "
 msgstr ""
 
-#: src/edit.js:162
+#: src/edit.js:234
 msgid "Please use only alpha numeric characters and hyphens."
 msgstr ""
 
-#: src/edit.js:229
+#: src/edit.js:279
 msgid "Croquet API Key"
 msgstr ""
 
-#: src/edit.js:233
+#: src/edit.js:283
 msgid "Showcase Name"
 msgstr ""
 
-#: src/edit.js:237
+#: src/edit.js:287
+msgid "Create a unique session per visit"
+msgstr ""
+
+#: src/edit.js:291
+msgid "Enable Dolby spatial voice chat"
+msgstr ""
+
+#: src/edit.js:295
 msgid "Minimum Height"
-msgstr "高さ(最小限)"
+msgstr ""
+
+#: src/edit.js:414
+msgid "Drop a media file (PNG, JPEG, MP4, or PDF)"
+msgstr ""
