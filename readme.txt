@@ -72,11 +72,11 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 == Changelog ==
 
-= 1.0.3
+= 1.0.3 =
 
 * First public version
 
-= 1.0.2
+= 1.0.2 =
 
 * Add more settings. Handle errors better.
 
