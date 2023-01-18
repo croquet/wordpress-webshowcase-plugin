@@ -194,7 +194,7 @@ export default function Edit({ attributes, setAttributes }) {
         if (f && f.message) {
             setShowingNotice(f.message);
         } else {
-            setShowingNotice(__("An error occurrd", "croquet-metaverse-web-showcase"));
+            setShowingNotice(__("An error occurred", "croquet-metaverse-web-showcase"));
         }
         console.error(f);
     };
