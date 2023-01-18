@@ -6,8 +6,8 @@
 |--------------------------|---------------------------------------------|
 | Contributors             | yoshikiohshima,zfox23                       |
 | Tags                     | metaverse, 3d, multiuser                    |
-| WordPress Version Tested | 6.1.0                                       |
-| Stable Tag               | 1.0.3                                       |
+| WordPress Version Tested | 6.1.1                                       |
+| Stable Tag               | 1.0.4                                       |
 | Requires PHP             | 7.0                                         |
 | License                  | Apache 2.0                                  |
 | License URI              | [https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0) |
