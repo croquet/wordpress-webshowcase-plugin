@@ -2,9 +2,9 @@
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 2,
     "name": "croquet/webshowcase-block",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "title": "Croquet Metaverse Web Showcase",
-    "category": "text",
+    "category": "embed",
     "icon": "admin-site",
     "description": "Croquet Metaverse Web Showcase",
     "attributes": {
@@ -26,7 +26,7 @@
         "showcaseName": {
             "type": "string",
             "selector": "div",
-            "default": "my-showcase"
+            "default": "(empty)"
         },
         "voiceChat": {
             "type": "boolean",

@@ -80,6 +80,16 @@ export default function Edit({ attributes, setAttributes }) {
         setAttributes({cardsString: JSON.stringify(cards)});
     }, [cards]);
 
+    useEffect(() => {
+        let suggestedShowcaseName = showcaseName;
+        if (suggestedShowcaseName === "(empty)") {
+            // specified in block.json
+            let suggestedShowcaseName = makeRandomName();
+            setShowcaseName(suggestedShowcaseName);
+        }
+        setAttributes({showcaseName: suggestedShowcaseName});
+    }, [showcaseName]);
+
     let set = useCallback((item, index) => {
         updateCardAttributeWith((oldCards) => {
             if (item && !item.type && item.path) {
@@ -150,7 +160,6 @@ export default function Edit({ attributes, setAttributes }) {
     };
 
     let updateShowcaseName = (val) => {
-        setAttributes({showcaseName: val});
         setShowcaseName(val);
     };
 
@@ -276,7 +285,7 @@ export default function Edit({ attributes, setAttributes }) {
             <InspectorControls>
                 <PanelBody title={"Settings"}>
                     <TextControl
-                        label={__("Croquet API Key", "croquet-metaverse-web-showcase")}
+                        label={__("Croquet API Key from https://croquet.io/keys", "croquet-metaverse-web-showcase")}
                         value={apiKey}
                         onChange={updateApiKey}/>
                     <TextControl
@@ -437,4 +446,8 @@ function getType(path) {
     }
     // we should be able to get the content type if it is in the media library
     return null;
+}
+
+function makeRandomName() {
+    return `my-showcase${Math.floor(Math.random() * 10000)}`.padStart(4, "0");
 }
