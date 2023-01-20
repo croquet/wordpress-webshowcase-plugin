@@ -177,7 +177,8 @@ export default function Edit({ attributes, setAttributes }) {
         let hasAll = files.map((file) => file.id).reduce((total, current) => total && current, true);
         if (!hasAll) {return;}
         let entries = files.map((file) => {
-            let type = getType(file.url);
+            let pathname = new URL(file.url).pathname;
+            let type = getType(pathname);
             if (!type) {
                 let mime_type = file.mime_type;
                 /*
@@ -191,7 +192,7 @@ export default function Edit({ attributes, setAttributes }) {
                 }
             }
             if (type) {
-                return {path: file.url, type};
+                return {path: pathname, type};
             }
             return null;
         });

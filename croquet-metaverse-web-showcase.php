@@ -104,6 +104,8 @@ function croquet_metaverse_web_showcase_dynamic_render_callback( $block_attribut
     return false;
   }
 
+  $src = parse_url($src, PHP_URL_PATH);
+
   // do_action("qm/debug", '$src: ' . $src);
 
   $uniqueSessionPerVisit = $block_attributes['uniqueSessionPerVisit'];
