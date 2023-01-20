@@ -256,6 +256,7 @@ export default function Edit({ attributes, setAttributes }) {
             key={i + 1}
             index={i}
             path={get(i).path || ""}
+            urlLink={get(i).urlLink || ""}
             hasUp={i !== 0} hasDown={i !== (cards.length - 1)}
             type={get(i).type} set={set}
             move={move}
@@ -311,15 +312,19 @@ export default function Edit({ attributes, setAttributes }) {
     );
 }
 
-function MediaRow({path, type, index, hasUp, hasDown, set, move, remove}) {
+function MediaRow({path, type, urlLink, index, hasUp, hasDown, set, move, remove}) {
     let onPathChange = (val) => {
-        set({path: val}, index);
+        set({path: val, urlLink}, index);
     };
     let onTypeChange = (val) => {
-        set({path, type: val}, index);
+        set({path, type: val, urlLink}, index);
     };
 
-    // className="showcase-media-row-path"
+    let onUrlLinkChange = (val) => {
+        set({path, type, urlLink: val}, index);
+    };
+
+    let urlLinkStyle = {visibility: type === "image" ? "visible" : "hidden"};
 
     return (
         <div className="showcase-media-row">
@@ -343,6 +348,13 @@ function MediaRow({path, type, index, hasUp, hasDown, set, move, remove}) {
                         {label: "pdf", value: "pdf"},
                         {label: "video", value: "video"}
                     ]}
+                />
+            </div>
+            <div className={"showcase-media-row-urlLink"} style={urlLinkStyle}>
+                <TextControl
+                    label={__("urlLink (optional)")}
+                    value={urlLink}
+                    onChange={onUrlLinkChange}
                 />
             </div>
             <div className={"showcase-media-row-delete"}>
