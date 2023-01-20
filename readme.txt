@@ -72,6 +72,14 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 == Changelog ==
 
+= 1.0.5 =
+
+* Use relative pathname for contents in the media library.
+
+= 1.0.4 =
+
+* Make sure that latest 6.1.1 is tested.
+
 = 1.0.3 =
 
 * First public version
