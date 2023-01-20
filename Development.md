@@ -27,8 +27,3 @@ Then, based on the version number, run:
 and
 
    svn ci -m 'version 1.x.y'
-
-
-
-
-
