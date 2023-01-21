@@ -9,7 +9,7 @@ import {__} from '@wordpress/i18n';
 import {
     Button,
     TextControl,
-    ComboboxControl,
+//    ComboboxControl,
     ToggleControl,
     __experimentalVStack as VStack,
     __experimentalUnitControl as UnitControl,
@@ -316,9 +316,11 @@ function MediaRow({path, type, urlLink, index, hasUp, hasDown, set, move, remove
     let onPathChange = (val) => {
         set({path: val, urlLink}, index);
     };
+    /*
     let onTypeChange = (val) => {
         set({path, type: val, urlLink}, index);
     };
+    */
 
     let onUrlLinkChange = (val) => {
         set({path, type, urlLink: val}, index);
@@ -336,7 +338,21 @@ function MediaRow({path, type, urlLink, index, hasUp, hasDown, set, move, remove
                     onChange={onPathChange}
                 />
             </div>
-            <div className={"showcase-media-row-type"}>
+            <div className={"showcase-media-row-urlLink"} style={urlLinkStyle}>
+                <TextControl
+                    label={__("urlLink (optional)")}
+                    value={urlLink}
+                    onChange={onUrlLinkChange}
+                />
+            </div>
+            <div className={"showcase-media-row-delete"}>
+                <DeleteButton index={index} remove={remove}/>
+            </div>
+        </div>
+    );
+    /*
+
+                <div className={"showcase-media-row-type"}>
                 <ComboboxControl
                     label={__("media type")}
                     allowReset={false}
@@ -350,18 +366,8 @@ function MediaRow({path, type, urlLink, index, hasUp, hasDown, set, move, remove
                     ]}
                 />
             </div>
-            <div className={"showcase-media-row-urlLink"} style={urlLinkStyle}>
-                <TextControl
-                    label={__("urlLink (optional)")}
-                    value={urlLink}
-                    onChange={onUrlLinkChange}
-                />
-            </div>
-            <div className={"showcase-media-row-delete"}>
-                <DeleteButton index={index} remove={remove}/>
-            </div>
-        </div>
-    );
+    */
+
 }
 
 function BlockMover({hasUp, hasDown, index, placeHolder, move}) {
