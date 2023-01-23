@@ -2,7 +2,7 @@
 Contributors:      yoshikiohshima,zfox23
 Tags:              metaverse, 3d, multiuser
 Tested up to:      6.1.1
-Stable tag:        1.0.6
+Stable tag:        1.0.7
 Requires PHP:      7.0
 License:           Apache 2.0
 License URI:       https://www.apache.org/licenses/LICENSE-2.0

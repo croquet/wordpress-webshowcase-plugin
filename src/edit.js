@@ -9,7 +9,7 @@ import {__} from '@wordpress/i18n';
 import {
     Button,
     TextControl,
-//    ComboboxControl,
+    // ComboboxControl,
     ToggleControl,
     __experimentalVStack as VStack,
     __experimentalUnitControl as UnitControl,
@@ -159,10 +159,6 @@ export default function Edit({ attributes, setAttributes }) {
         setMinHeight(val);
     };
 
-    let updateShowcaseName = (val) => {
-        setShowcaseName(val);
-    };
-
     let updateUniqueSessionPerVisit = (val) => {
         setAttributes({uniqueSessionPerVisit: val});
         setUniqueSessionPerVisit(val);
@@ -232,25 +228,6 @@ export default function Edit({ attributes, setAttributes }) {
         </Text>
     );
 
-    let showcaseMessage;
-    let showcaseMessageColor = "red";
-    if (showcaseName === "") {
-        showcaseMessage = __("Please set Showcase Name in the side bar settings", "croquet-metaverse-web-showcase");
-    } else {
-        if (/^[A-Za-z0-9-]+$/.test(showcaseName)) {
-            showcaseMessage = __("showcase name: ", "croquet-metaverse-web-showcase") + showcaseName;
-            showcaseMessageColor = "black";
-        } else {
-            showcaseMessage = __("Please use only alpha numeric characters and hyphens.", "croquet-metaverse-web-showcase");
-        }
-    }
-
-    let showcaseNameText = (
-        <Text style={{marginRight: "10px"}} color={showcaseMessageColor} key={-2} align="right">
-            {showcaseMessage}
-        </Text>
-    );
-
     let rows = [...Array(cards.length).keys()].map(i => (
         <MediaRow
             key={i + 1}
@@ -269,12 +246,28 @@ export default function Edit({ attributes, setAttributes }) {
         setShowingNotice(false);
     };
 
-    let stack = [title, apiKeyText, showcaseNameText, <Divider key={-4}/>, ...rows, addButton];
+    let stack = [title, apiKeyText, <Divider key={-4}/>, ...rows, addButton];
 
     if (showingNotice) {
         let notice = <Notice key={-7} onDismiss={noticeDismiss} status="error" >{showingNotice}</Notice>;
         stack.push(notice);
     }
+
+    let uniqueSessionHelp = (flag) => {
+        if (flag) {
+            return __("Every new visitor goes into a new session", "croquet-metaverse-web-showcase");
+        }
+        return __("All visitors go into the same session", "croquet-metaverse-web-showcase");
+    };
+
+    let dolbyAudioHelp = (flag) => {
+        if (flag) {
+            return __("Dolby Spatial audio chat is enabled", "croquet-metaverse-web-showcase");
+        }
+        return __("Dolby Spatial audio chat is disabled", "croquet-metaverse-web-showcase");
+    };
+
+    let minimumHeightHelp = __("The height of the graphics on the page", "croquet-metaverse-web-showcase");
 
     return (
         <>
@@ -287,24 +280,24 @@ export default function Edit({ attributes, setAttributes }) {
             <InspectorControls>
                 <PanelBody title={"Settings"}>
                     <TextControl
-                        label={__("Croquet API Key from https://croquet.io/keys", "croquet-metaverse-web-showcase")}
+                        label={__("Croquet API Key", "croquet-metaverse-web-showcase")}
                         value={apiKey}
+                        help={__("A key in string to access to the Croquet network infrastructure. You can generate one on https://croquet.io/keys", "croquet-metaverse-web-showcase")}
                         onChange={updateApiKey}/>
-                    <TextControl
-                        label={__("Showcase Name", "croquet-metaverse-web-showcase")}
-                        value={showcaseName}
-                        onChange={updateShowcaseName}/>
                     <ToggleControl
                         label={__("Create a unique session per visit", "croquet-metaverse-web-showcase")}
                         checked={uniqueSessionPerVisit}
+                        help={uniqueSessionHelp}
                         onChange={updateUniqueSessionPerVisit}/>
                     <ToggleControl
                         label={__("Enable Dolby spatial voice chat", "croquet-metaverse-web-showcase")}
                         checked={voiceChat}
+                        help={dolbyAudioHelp}
                         onChange={updateVoiceChat}/>
                     <UnitControl
                         label={__("Minimum Height", "croquet-metaverse-web-showcase")}
                         value={minHeight}
+                        help={minimumHeightHelp}
                         onChange={updateMinHeight}/>
                 </PanelBody>
             </InspectorControls>
@@ -468,5 +461,5 @@ function getType(path) {
 }
 
 function makeRandomName() {
-    return `my-showcase${Math.floor(Math.random() * 10000)}`.padStart(4, "0");
+    return `my-showcase${Math.floor(Math.random() * 1000000)}`.padStart(6, "0");
 }
