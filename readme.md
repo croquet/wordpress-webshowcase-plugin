@@ -87,6 +87,9 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 ## Changelog
 
+### 1.0.7 
+* remove showcase name settings as it is now a random name.
+
 ### 1.0.6 
 * remove file type drop down.
 
