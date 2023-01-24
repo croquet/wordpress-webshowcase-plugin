@@ -54,6 +54,7 @@ export default function Edit({ attributes, setAttributes }) {
     let [cards, setCards] = useState(JSON.parse(attributes.cardsString));
     let [minHeight, setMinHeight] = useState(attributes.minHeight);
     let [apiKey, setApiKey] = useState(attributes.apiKey);
+    let [apiKeyCorrect, setApiKeyCorrect] = useState(true);
     let [showcaseName, setShowcaseName] = useState(attributes.showcaseName);
     let [uniqueSessionPerVisit, setUniqueSessionPerVisit] = useState(attributes.uniqueSessionPerVisit);
     let [voiceChat, setVoiceChat] = useState(attributes.voiceChat);
@@ -89,6 +90,16 @@ export default function Edit({ attributes, setAttributes }) {
         }
         setAttributes({showcaseName: suggestedShowcaseName});
     }, [showcaseName]);
+
+    useEffect(() => {
+        let correct;
+        if (apiKey.length === 41) {
+            correct = /^[0-9a-zA-Z]+$/.test(apiKey);
+        } else {
+            correct = /^[0-9]_[0-9a-zA-Z]+$/.test(apiKey);
+        }
+        setApiKeyCorrect(correct);
+    }, [apiKey]);
 
     let set = useCallback((item, index) => {
         updateCardAttributeWith((oldCards) => {
@@ -216,12 +227,16 @@ export default function Edit({ attributes, setAttributes }) {
     let title = <Heading style={{alignSelf: "center"}} key={-5} level={4}>{__("Croquet Web Showcase", "croquet-metaverse-web-showcase")}</Heading>;
 
     let apiKeyMessage;
+    let apiKeyMessageColor = "black";
     if (apiKey === "") {
         apiKeyMessage = __("Please set API key in the side bar settings", "croquet-metaverse-web-showcase");
+        apiKeyMessageColor = "red";
+    } else if (!apiKeyCorrect) {
+        apiKeyMessage = __("The API Key is not in the right format. It should look like: 1abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
+        apiKeyMessageColor = "red";
     } else {
         apiKeyMessage =  __("apiKey: ", "croquet-metaverse-web-showcase") + apiKey;
     }
-    let apiKeyMessageColor = apiKey === "" ? "red" : "black";
     let apiKeyText = (
         <Text style={{marginRight: "10px"}} color={apiKeyMessageColor} key={-1} align="right">
             {apiKeyMessage}
@@ -253,6 +268,8 @@ export default function Edit({ attributes, setAttributes }) {
         stack.push(notice);
     }
 
+    let apiKeyHelp = __("A key to access the Croquet network. You can generate one on https://croquet.io/keys. Paste the key string that looks like: 1abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
+
     let uniqueSessionHelp = (flag) => {
         if (flag) {
             return __("Every new visitor goes into a new session", "croquet-metaverse-web-showcase");
@@ -282,7 +299,7 @@ export default function Edit({ attributes, setAttributes }) {
                     <TextControl
                         label={__("Croquet API Key", "croquet-metaverse-web-showcase")}
                         value={apiKey}
-                        help={__("A key in string to access to the Croquet network infrastructure. You can generate one on https://croquet.io/keys", "croquet-metaverse-web-showcase")}
+                        help={apiKeyHelp}
                         onChange={updateApiKey}/>
                     <ToggleControl
                         label={__("Create a unique session per visit", "croquet-metaverse-web-showcase")}
