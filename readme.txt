@@ -3,7 +3,7 @@ Contributors:      yoshikiohshima,zfox23
 Tags:              metaverse, 3d, multiuser
 Tested up to:      6.1.1
 Requires at least: 5.9
-Stable tag:        1.0.7
+Stable tag:        1.0.8
 Requires PHP:      7.0
 License:           Apache 2.0
 License URI:       https://www.apache.org/licenses/LICENSE-2.0
@@ -72,6 +72,10 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 2. The 3D space created on your page.
 
 == Changelog ==
+
+= 1.0.8 =
+
+* fix typo.
 
 = 1.0.7 =
 
