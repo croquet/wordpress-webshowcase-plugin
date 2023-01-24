@@ -333,7 +333,7 @@ function MediaRow({path, type, urlLink, index, hasUp, hasDown, set, move, remove
             </div>
             <div className={"showcase-media-row-urlLink"} style={urlLinkStyle}>
                 <TextControl
-                    label={__("urlLink (optional)")}
+                    label={__("Link (optional)")}
                     value={urlLink}
                     onChange={onUrlLinkChange}
                 />

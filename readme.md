@@ -9,6 +9,7 @@
 | WordPress Version Tested | 6.1.1                                       |
 | Stable Tag               | 1.0.7                                       |
 | Requires PHP             | 7.0                                         |
+| Requires at least        | 5.9                                         |
 | License                  | Apache 2.0                                  |
 | License URI              | [https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0) |
 

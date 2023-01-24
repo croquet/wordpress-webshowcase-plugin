@@ -3,9 +3,9 @@
  * Plugin Name:       Croquet Metaverse Web Showcase
  * Description:       Croquet Metaverse Web Showcase
  * Version:           1.0.6
- * Requires at least: 6.0
+ * Requires at least: 5.9
  * Requires PHP:      7.0
- * Author:            The Croquet Corporation
+ * Author:            The Croquet Corporationo
  * Plugin URI:        https://croquet.io/webshowcase
  * Description:       Croquet Metaverse Web Showcase
  * Author URI:        https://croquet.io/

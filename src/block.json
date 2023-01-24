@@ -6,7 +6,7 @@
     "title": "Croquet Metaverse Web Showcase",
     "category": "embed",
     "icon": "admin-site",
-    "description": "Croquet Metaverse Web Showcase",
+    "description": "A 3D multiplayer space on WordPress pages",
     "attributes": {
         "cardsString": {
             "type": "string",
@@ -36,7 +36,7 @@
         "uniqueSessionPerVisit": {
             "type": "boolean",
             "selector": "div",
-            "default": false
+            "default": true
         }
     },
     "supports": {
