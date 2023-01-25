@@ -18,7 +18,7 @@ to provide translation online.
 
 To make a zip file, run `npm run build` and then run `npm run plugin-zip`.
 
-To copy contains to SVN, copy those directories, `build`, `src`, `languages`, `package.json`, `croquet-metaverse-web-showcase.php`, `readme.txt`, `readme.md` and `Development.md` to the `trunk` directory.
+To copy contains to SVN, copy those directories, `build`, `src`, `languages`, `package.json`, `croquet-metaverse-web-showcase.php`, `readme.txt`, `readme.md` to the `trunk` directory.
 
 Then, based on the version number, run:
 
