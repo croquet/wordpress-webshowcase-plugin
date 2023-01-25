@@ -16,14 +16,18 @@ Croquet Metaverse Web Showcase is a new WordPress block which allows people to e
 
 See the plugin in action in this video: https://www.youtube.com/watch?v=q0cFApaNEBI
 
-Installation is easy. Search for "Croquet Web Showcase" from the plugin installation page.
-After installing the plugin, make sure that you have the Croquet API Key for your site. You can create a key for free on https://croquet.io/keys. A key looks like 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample.
+To install the plugin, search for "Croquet Web Showcase" from your WordPress plugin installation page.
 
-Then create the Croquet Metaverse Web Showcase Block in the Block editor. That looks like the first screenshot. Open the sidebar settings for the block by clicking on the the gear icon at the top right corner on the editing page and clicking on the block. You paste the Croquet API into the API Key settings and you are good to go.
+You will need a Croquet API Key to use the plugin. You can create a key for free at https://croquet.io/keys.
+Your API key will look something like this: 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample
 
-There are two default assets already set. We recommend to preview the page at this point. You should see a 3D art gallery space with two images.
+While writing a new Post or Page, you can add a Croquet Metaverse Web Showcase block in the block editor, as shown in the first screenshot.
 
-When this works, go back to the editing page, and remove the default contents by pressing the "X" buttons on the row. You can drag your own assets into the block to add them. You can rearrange them.
+Open the sidebar settings for the Web Showcase block by clicking on the the gear icon at the top right corner of your editing page and clicking on the block. In the sidebar settings, you can paste your Croquet API Key into the API Key text field.
+
+By default, a new Web Showcase block contains two default assets. If you preview your Post or Page, you can see a 3D art gallery space with those two images.
+
+Once you have verified that this works, you can remove the default contents within the Web Showcase block by pressing the "X" button on each row. You can drag your own image, video, and PDF assets into the block to add them. You can rearrange them in the block editor, and they will change positions in the 3D gallery.
 
 Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more information about Web Showcase.
 
@@ -46,24 +50,26 @@ Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more informat
 
 == Settings ==
 
-There are some settings in the sidebar of the block editor. Click on the gear icon to bring the sidebar up.
+There are some sidebar settings associated with the Metaverwe Web Showcase block. If you don't see a sidebar in your editor, click the gear icon in the top right of the editor to open the sidebar.
 
 = Croquet API Key =
 
-The key is used to access the Croquet Reflector network. You can generate an API Key, which is a string looks like 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample on https://croquet.io/keys.
+This API key is used to access the Croquet Reflector network. You can generate an API Key at https://croquet.io/keys. Your API key will look something like this: 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample
 
 These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 
 = Create a unique session per visit =
 
-When true, a visitor goes into a new Showcase session when they open the WordPress page. When false, they go into the same session. You can still share the session by clicking on the three bar menu within the Shwocase instance and scan the QR code or share the internal link.
-
-= Minimum Height =
-It specifies the height of the 3D scene on the page. The block's height also changes to give the sense of how tall the resulting 3D scene will be.
+When this switch is enabled, a visitor to your WordPress page will enter a new, unique Showcase session. Visitors can invite others into their Showcase session using the QR code or the Invite link in the three-bar application menu.
+When this switch is disabled, every visitor to your WordPress page will enter the same session. Visitors can invite others into that Showcase session using the QR code or the Invite link in the three-bar application menu.
 
 = Voice Chat =
 
-When true, and if the WordPress is hosted on a secure HTTP connection, the voice chat can be used.
+When this switch is enabled, and if your WordPress site uses a secure HTTPS connection, visitors to your Showcase can use Dolby.io Spatial Voice Chat to communicate with each other.
+
+= Minimum Height =
+
+This setting specifies the height of the 3D Showcase embedded within the page.
 
 == Frequently Asked Questions ==
 
@@ -73,7 +79,7 @@ When true, and if the WordPress is hosted on a secure HTTP connection, the voice
 
 = How much does it cost? =
 
-Web Showcase is free. You can obtain the Croquet API Key for free from [https://croquet.io/keys](https://croquet.io/keys) and paste it into the sidebar settings panel after selecting the Web Showcase WordPress block.
+Web Showcase is free. You can obtain a Croquet API Key for free from [https://croquet.io/keys](https://croquet.io/keys) and paste it into the sidebar settings panel after selecting the Web Showcase WordPress block.
 
 = What does the WordPress plugin do? =
 
@@ -81,7 +87,7 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 == Screenshots ==
 
-1. The Block Editor View .
+1. The Block Editor View.
 
 2. The 3D space created on your page.
 
