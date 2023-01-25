@@ -14,12 +14,13 @@ Croquet Metaverse Web Showcase allows you to embed a 3D multiplayer environment 
 
 Croquet Metaverse Web Showcase is a new WordPress block which allows people to embed a multiuser, collaborative, 3D space into a WordPress site. A WordPress author can drag images, videos, and PDF files into the block to add their content into the virtual 3D space.
 
-See the plugin in action in this video: https://www.youtube.com/watch?v=q0cFApaNEBI
+See the plugin in action in this video:
+https://www.youtube.com/watch?v=q0cFApaNEBI
 
 To install the plugin, search for "Croquet Web Showcase" from your WordPress plugin installation page.
 
-You will need a Croquet API Key to use the plugin. You can create a key for free at https://croquet.io/keys.
-Your API key will look something like this: 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample
+You will need a Croquet API Key to use the plugin. You can create a key for free at [croquet.io/keys](https://croquet.io/keys).
+Your API key will look something like this: `15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample`
 
 While writing a new Post or Page, you can add a Croquet Metaverse Web Showcase block in the block editor, as shown in the first screenshot.
 
@@ -54,7 +55,7 @@ There are some sidebar settings associated with the Metaverwe Web Showcase block
 
 = Croquet API Key =
 
-This API key is used to access the Croquet Reflector network. You can generate an API Key at https://croquet.io/keys. Your API key will look something like this: 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample
+This API key is used to access the Croquet Reflector network. You can generate an API Key at [croquet.io/keys](https://croquet.io/keys). Your API key will look something like this: `15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample`
 
 These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 
