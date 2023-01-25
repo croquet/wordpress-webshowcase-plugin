@@ -7,7 +7,7 @@
 | Contributors             | yoshikiohshima,zfox23                       |
 | Tags                     | metaverse, 3d, multiuser                    |
 | WordPress Version Tested | 6.1.1                                       |
-| Stable Tag               | 1.1.0                                       |
+| Stable Tag               | 1.0.9                                       |
 | Requires PHP             | 7.0                                         |
 | Requires at least        | 5.9                                         |
 | License                  | Apache 2.0                                  |
@@ -17,7 +17,18 @@
 
 Croquet Metaverse Web Showcase is a new WordPress block which allows people to embed a multiuser, collaborative, 3D space into a WordPress site. A WordPress author can drag images, videos, and PDF files into the block to add their content into the virtual 3D space.
 
-Visit [https://croquet.io/webshowcase](https://croquet.io/webshowcase) for more information about Web Showcase.
+See the plugin in action in this video: https://www.youtube.com/watch?v=q0cFApaNEBI
+
+Installation is easy. Search for "Croquet Web Showcase" from the plugin installation page.
+After installing the plugin, make sure that you have the Croquet API Key for your site. You can create a key for free on https://croquet.io/keys. A key looks like 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample.
+
+Then create the Croquet Metaverse Web Showcase Block in the Block editor. That looks like the first screenshot. Open the sidebar settings for the block by clicking on the the gear icon at the top right corner on the editing page and clicking on the block. You paste the Croquet API into the API Key settings and you are good to go.
+
+There are two default assets already set. We recommend to preview the page at this point. You should see a 3D art gallery space with two images.
+
+When this works, go back to the editing page, and remove the default contents by pressing the "X" buttons on the row. You can drag your own assets into the block to add them. You can rearrange them.
+
+Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more information about Web Showcase.
 
 ### Features
 
@@ -35,7 +46,7 @@ Visit [https://croquet.io/webshowcase](https://croquet.io/webshowcase) for more 
 * Users in the same session may join a spatialized voice chat to talk.
 
 ### Usage
-1. Visit [https://croquet.io/keys](https://croquet.io/keys) and create a production API Key.
+1. Visit [croquet.io/keys](https://croquet.io/keys) and create a production API Key.
     * These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 2. Instantiate a Croquet Metaverse Web Showcase block in the WordPress block editor
 3. Paste the API key into the sidebar settings.
@@ -46,11 +57,7 @@ Visit [https://croquet.io/webshowcase](https://croquet.io/webshowcase) for more 
 
 ### Croquet API Key
 
-The key is used to access the Croquet Reflector network.
-
-### Showcase name
-
-A name that identifies the Web Showcase instance. Set a unique name for an instance if you would like to have multiple instances of Showcases that uses the same API Key.
+The key is used to access the Croquet Reflector network. You can generate an API Key, which is a string looks like 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample on https://croquet.io/keys.
 
 ### Create a unique session per visit
 
