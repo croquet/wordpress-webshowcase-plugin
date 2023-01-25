@@ -94,7 +94,7 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 ## Changelog
 
-### 1.1.0
+### 1.0.9
 * show warning when API Key is malformed.
 
 ### 1.0.8
