@@ -2,14 +2,14 @@
 # This file is distributed under the Apache-2.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Croquet Metaverse Web Showcase 1.0.8\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/croquet-showcase\n"
+"Project-Id-Version: Croquet Metaverse Web Showcase 1.0.9\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/croquet-metaverse-web-showcase\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-24T18:04:53+00:00\n"
+"POT-Creation-Date: 2023-01-25T20:14:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0-alpha\n"
 "X-Domain: croquet-metaverse-web-showcase\n"
@@ -31,62 +31,66 @@ msgstr ""
 msgid "https://croquet.io/"
 msgstr ""
 
-#: src/edit.js:203
+#: src/edit.js:214
 msgid "An error occurred"
 msgstr ""
 
-#: src/edit.js:216
+#: src/edit.js:227
 msgid "Croquet Web Showcase"
 msgstr ""
 
-#: src/edit.js:220
+#: src/edit.js:232
 msgid "Please set API key in the side bar settings"
 msgstr ""
 
-#: src/edit.js:222
+#: src/edit.js:235
+msgid "The API Key is not in the right format. It should look like: 1abcdefg123456890ABCDEFG"
+msgstr ""
+
+#: src/edit.js:238
 msgid "apiKey: "
 msgstr ""
 
-#: src/edit.js:258
+#: src/edit.js:271
+msgid "A key to access the Croquet network. You can generate one on https://croquet.io/keys. Paste the key string that looks like: 1abcdefg123456890ABCDEFG"
+msgstr ""
+
+#: src/edit.js:275
 msgid "Every new visitor goes into a new session"
 msgstr ""
 
-#: src/edit.js:260
+#: src/edit.js:277
 msgid "All visitors go into the same session"
 msgstr ""
 
-#: src/edit.js:265
+#: src/edit.js:282
 msgid "Dolby Spatial audio chat is enabled"
 msgstr ""
 
-#: src/edit.js:267
+#: src/edit.js:284
 msgid "Dolby Spatial audio chat is disabled"
 msgstr ""
 
-#: src/edit.js:270
+#: src/edit.js:287
 msgid "The height of the graphics on the page"
 msgstr ""
 
-#: src/edit.js:283
+#: src/edit.js:300
 msgid "Croquet API Key"
 msgstr ""
 
-#: src/edit.js:285
-msgid "A key in string to access to the Croquet network infrastructure. You can generate one on https://croquet.io/keys"
-msgstr ""
-
-#: src/edit.js:288
+#: src/edit.js:305
 msgid "Create a unique session per visit"
 msgstr ""
 
-#: src/edit.js:293
+#: src/edit.js:310
 msgid "Enable Dolby spatial voice chat"
 msgstr ""
 
-#: src/edit.js:298
+#: src/edit.js:315
 msgid "Minimum Height"
 msgstr ""
 
-#: src/edit.js:436
+#: src/edit.js:453
 msgid "Drop a media file (PNG, JPEG, MP4, or PDF)"
 msgstr ""
