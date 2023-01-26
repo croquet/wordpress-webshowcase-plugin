@@ -235,7 +235,7 @@ export default function Edit({ attributes, setAttributes }) {
         apiKeyMessage = __("The API Key is not in the right format. It should look like: 1abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
         apiKeyMessageColor = "red";
     } else {
-        apiKeyMessage =  __("apiKey: ", "croquet-metaverse-web-showcase") + apiKey;
+        apiKeyMessage =  __("API Key: ", "croquet-metaverse-web-showcase") + apiKey;
     }
     let apiKeyText = (
         <Text style={{marginRight: "10px"}} color={apiKeyMessageColor} key={-1} align="right">
