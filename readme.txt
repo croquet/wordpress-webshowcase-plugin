@@ -95,6 +95,9 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 == Changelog ==
 
+= 1.1.1 =
+* remove camel caseed apiKey in user interface.
+
 = 1.1.0 =
 * fix typo in doc.
 
