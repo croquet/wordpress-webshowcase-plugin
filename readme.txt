@@ -3,7 +3,7 @@ Contributors:      yoshikiohshima,zfox23
 Tags:              metaverse, 3d, multiuser
 Tested up to:      6.1.1
 Requires at least: 5.9
-Stable tag:        1.1.0
+Stable tag:        1.1.1
 Requires PHP:      7.0
 License:           Apache 2.0
 License URI:       https://www.apache.org/licenses/LICENSE-2.0
@@ -15,6 +15,7 @@ Croquet Metaverse Web Showcase allows you to embed a 3D multiplayer environment 
 Croquet Metaverse Web Showcase is a new WordPress block which allows people to embed a multiuser, collaborative, 3D space into a WordPress site. A WordPress author can drag images, videos, and PDF files into the block to add their content into the virtual 3D space.
 
 See the plugin in action in this video:
+
 https://www.youtube.com/watch?v=q0cFApaNEBI
 
 To install the plugin, search for "Croquet Web Showcase" from your WordPress plugin installation page.

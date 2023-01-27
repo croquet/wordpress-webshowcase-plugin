@@ -10,6 +10,8 @@ The `languages` contains the pot file. That was created by running:
 
     wp i18n make-pot . languages/croquet-metaverse-web-showcase.pot
 
+(Make sure that you run this after `npm run build` but not `npm start` the latter creates some more files for debugging and make-pot looks at them also.)
+
 The file is used here:
 
 https://translate.wordpress.org/projects/wp-plugins/croquet-metaverse-web-showcase/stable/
