@@ -20,12 +20,17 @@ to provide translation online.
 
 To make a zip file, run `npm run build` and then run `npm run plugin-zip`.
 
-To copy contains to SVN, copy those directories, `build`, `src`, `languages`, `package.json`, `croquet-metaverse-web-showcase.php`, `readme.txt`, `readme.md` to the `trunk` directory.
+The copy-to-svn.sh copies files to the specified destination, which is assumed to be a SVN directory for the plugin.  Run
 
-Then, based on the version number, run:
+   ./copy-to-svn.sh ~/src/wordpress-showcase # or any directory of SVN
 
-   svn cp trunk tags/1.x.y
+to copy `build`, `src`, `languages`, `package.json`, `croquet-metaverse-web-showcase.php`, `readme.txt`, `readme.md` to the `trunk` directory, create the tagged version specified in croquet-metaverse-web-showcase.php.
+
+Then, check things with
+
+   svn status
 
 and
 
    svn ci -m 'version 1.x.y'
+
