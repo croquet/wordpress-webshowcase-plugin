@@ -33,10 +33,10 @@
             "selector": "div",
             "default": true
         },
-        "uniqueSessionPerVisit": {
-            "type": "boolean",
+        "showcasePrivacy": {
+            "type": "string",
             "selector": "div",
-            "default": true
+            "default": "invite"
         }
     },
     "supports": {

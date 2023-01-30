@@ -60,10 +60,10 @@ This API key is used to access the Croquet Reflector network. You can generate a
 
 These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 
-= Create a unique session per visit =
+= Showcase Privacy =
 
-When this switch is enabled, a visitor to your WordPress page will enter a new, unique Showcase session. Visitors can invite others into their Showcase session using the QR code or the Invite link in the three-bar application menu.
-When this switch is disabled, every visitor to your WordPress page will enter the same session. Visitors can invite others into that Showcase session using the QR code or the Invite link in the three-bar application menu.
+When this setting is set to "Invite Only" (the default), **each visitor to your WordPress page will enter a new, unique Showcase session**. Visitors can invite others into their Showcase session using the QR code or the Invite link in the three-bar application menu.
+When this setting is set to "Public", **every visitor to your WordPress page will enter the same session**. Visitors to your Showcase can invite other people via their URL in their browser's address bar. Visitors can also invite others into that Showcase session using the QR code or the Invite link in the three-bar application menu.
 
 = Voice Chat =
 
