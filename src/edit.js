@@ -271,9 +271,7 @@ export default function Edit({ attributes, setAttributes }) {
 
     let apiKeyHelp = __("A key to access the Croquet network. You can generate one on https://croquet.io/keys. Paste the key string that looks like: 1abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
 
-    let showcasePrivacyHelp = (flag) => {
-        return __("Determines the privacy of this Web Showcase instantiation", "croquet-metaverse-web-showcase");
-    };
+    let showcasePrivacyHelp = __("Determines the privacy of this Web Showcase instantiation", "croquet-metaverse-web-showcase");
 
     let dolbyAudioHelp = (flag) => {
         if (flag) {
