@@ -37,6 +37,11 @@
             "type": "string",
             "selector": "div",
             "default": "invite"
+        },
+         "uniqueSessionPerVisit": {
+            "type": "boolean",
+            "selector": "div",
+            "default": true
         }
     },
     "supports": {

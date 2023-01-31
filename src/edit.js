@@ -61,6 +61,10 @@ export default function Edit({ attributes, setAttributes }) {
     let [voiceChat, setVoiceChat] = useState(attributes.voiceChat);
     let [showingNotice, setShowingNotice] = useState(false);
 
+    // uniqueSessionPerVisit was used before 1.1.2. We migrate the value if it was set to false in
+    // an effect below
+    let uniqueSessionPerVisit = attributes.uniqueSessionPerVisit;
+
     let updateCards = useCallback((item, index, cardsArray) => {
         let newCards = [...cardsArray];
         newCards[index] = item;
@@ -91,6 +95,16 @@ export default function Edit({ attributes, setAttributes }) {
         }
         setAttributes({showcaseName: suggestedShowcaseName});
     }, [showcaseName]);
+
+    useEffect(() => {
+        debugger;
+        if (uniqueSessionPerVisit === false) {
+            // the default for uniqueSessionPerVisit was true, and only when it has ever changed
+            // to false, the value for showcaePrivacy becomes "public"
+            setAttributes({showcasePrivacy: "public"});
+            setShowcasePrivacy("public");
+        }
+    }, [uniqueSessionPerVisit]);
 
     useEffect(() => {
         let correct;
