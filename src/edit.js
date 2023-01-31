@@ -304,7 +304,7 @@ export default function Edit({ attributes, setAttributes }) {
                 <DropZone onFilesDrop={onFilesDrop}/>
             </div>
             <InspectorControls>
-                <PanelBody title={"Settings"}>
+                <PanelBody title={__("Settings", "croquet-metaverse-web-showcase")}>
                     <TextControl
                         label={__("Croquet API Key", "croquet-metaverse-web-showcase")}
                         value={apiKey}
@@ -315,8 +315,8 @@ export default function Edit({ attributes, setAttributes }) {
                         help={showcasePrivacyHelp}
                         selected={showcasePrivacy}
                         options={[
-                            { label: 'Invite Only', value: 'invite' },
-                            { label: 'Public', value: 'public' },
+                            { label: __("Invite Only", "croquet-metaverse-web-showcase"), value: 'invite' },
+                            { label: __("Public", "croquet-metaverse-web-showcase"), value: 'public' },
                         ]}
                         onChange={updateShowcasePrivacy}
                     />
