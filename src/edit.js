@@ -97,7 +97,6 @@ export default function Edit({ attributes, setAttributes }) {
     }, [showcaseName]);
 
     useEffect(() => {
-        debugger;
         if (uniqueSessionPerVisit === false) {
             // the default for uniqueSessionPerVisit was true, and only when it has ever changed
             // to false, the value for showcaePrivacy becomes "public"

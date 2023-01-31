@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-27T00:07:39+00:00\n"
+"POT-Creation-Date: 2023-01-31T20:05:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0-alpha\n"
 "X-Domain: croquet-metaverse-web-showcase\n"
@@ -31,66 +31,62 @@ msgstr ""
 msgid "https://croquet.io/"
 msgstr ""
 
-#: src/edit.js:214
+#: src/edit.js:228
 msgid "An error occurred"
 msgstr ""
 
-#: src/edit.js:227
+#: src/edit.js:241
 msgid "Croquet Web Showcase"
 msgstr ""
 
-#: src/edit.js:232
+#: src/edit.js:246
 msgid "Please set API key in the side bar settings"
 msgstr ""
 
-#: src/edit.js:235
+#: src/edit.js:249
 msgid "The API Key is not in the right format. It should look like: 1abcdefg123456890ABCDEFG"
 msgstr ""
 
-#: src/edit.js:238
+#: src/edit.js:252
 msgid "API Key"
 msgstr ""
 
-#: src/edit.js:271
+#: src/edit.js:285
 msgid "A key to access the Croquet network. You can generate one on https://croquet.io/keys. Paste the key string that looks like: 1abcdefg123456890ABCDEFG"
 msgstr ""
 
-#: src/edit.js:275
-msgid "Every new visitor goes into a new session"
+#: src/edit.js:287
+msgid "Determines the privacy of this Web Showcase instantiation"
 msgstr ""
 
-#: src/edit.js:277
-msgid "All visitors go into the same session"
-msgstr ""
-
-#: src/edit.js:282
+#: src/edit.js:291
 msgid "Dolby Spatial audio chat is enabled"
 msgstr ""
 
-#: src/edit.js:284
+#: src/edit.js:293
 msgid "Dolby Spatial audio chat is disabled"
 msgstr ""
 
-#: src/edit.js:287
+#: src/edit.js:296
 msgid "The height of the graphics on the page"
 msgstr ""
 
-#: src/edit.js:300
+#: src/edit.js:309
 msgid "Croquet API Key"
 msgstr ""
 
-#: src/edit.js:305
-msgid "Create a unique session per visit"
+#: src/edit.js:314
+msgid "Showcase Privacy"
 msgstr ""
 
-#: src/edit.js:310
+#: src/edit.js:324
 msgid "Enable Dolby spatial voice chat"
 msgstr ""
 
-#: src/edit.js:315
+#: src/edit.js:329
 msgid "Minimum Height"
 msgstr ""
 
-#: src/edit.js:453
+#: src/edit.js:467
 msgid "Drop a media file (PNG, JPEG, MP4, or PDF)"
 msgstr ""
