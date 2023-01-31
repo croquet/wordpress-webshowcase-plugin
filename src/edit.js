@@ -11,6 +11,7 @@ import {
     TextControl,
     // ComboboxControl,
     ToggleControl,
+    RadioControl,
     __experimentalVStack as VStack,
     __experimentalUnitControl as UnitControl,
     __experimentalDivider as Divider,
@@ -56,7 +57,7 @@ export default function Edit({ attributes, setAttributes }) {
     let [apiKey, setApiKey] = useState(attributes.apiKey);
     let [apiKeyCorrect, setApiKeyCorrect] = useState(true);
     let [showcaseName, setShowcaseName] = useState(attributes.showcaseName);
-    let [uniqueSessionPerVisit, setUniqueSessionPerVisit] = useState(attributes.uniqueSessionPerVisit);
+    let [showcasePrivacy, setShowcasePrivacy] = useState(attributes.showcasePrivacy);
     let [voiceChat, setVoiceChat] = useState(attributes.voiceChat);
     let [showingNotice, setShowingNotice] = useState(false);
 
@@ -170,9 +171,9 @@ export default function Edit({ attributes, setAttributes }) {
         setMinHeight(val);
     };
 
-    let updateUniqueSessionPerVisit = (val) => {
-        setAttributes({uniqueSessionPerVisit: val});
-        setUniqueSessionPerVisit(val);
+    let updateShowcasePrivacy = (val) => {
+        setAttributes({showcasePrivacy: val});
+        setShowcasePrivacy(val);
     };
 
     let updateVoiceChat = (val) => {
@@ -270,12 +271,7 @@ export default function Edit({ attributes, setAttributes }) {
 
     let apiKeyHelp = __("A key to access the Croquet network. You can generate one on https://croquet.io/keys. Paste the key string that looks like: 1abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
 
-    let uniqueSessionHelp = (flag) => {
-        if (flag) {
-            return __("Every new visitor goes into a new session", "croquet-metaverse-web-showcase");
-        }
-        return __("All visitors go into the same session", "croquet-metaverse-web-showcase");
-    };
+    let showcasePrivacyHelp = __("Determines the privacy of this Web Showcase instantiation", "croquet-metaverse-web-showcase");
 
     let dolbyAudioHelp = (flag) => {
         if (flag) {
@@ -301,11 +297,16 @@ export default function Edit({ attributes, setAttributes }) {
                         value={apiKey}
                         help={apiKeyHelp}
                         onChange={updateApiKey}/>
-                    <ToggleControl
-                        label={__("Create a unique session per visit", "croquet-metaverse-web-showcase")}
-                        checked={uniqueSessionPerVisit}
-                        help={uniqueSessionHelp}
-                        onChange={updateUniqueSessionPerVisit}/>
+                    <RadioControl
+                        label={__("Showcase Privacy", "croquet-metaverse-web-showcase")}
+                        help={showcasePrivacyHelp}
+                        selected={showcasePrivacy}
+                        options={[
+                            { label: 'Invite Only', value: 'invite' },
+                            { label: 'Public', value: 'public' },
+                        ]}
+                        onChange={updateShowcasePrivacy}
+                    />
                     <ToggleControl
                         label={__("Enable Dolby spatial voice chat", "croquet-metaverse-web-showcase")}
                         checked={voiceChat}

@@ -115,12 +115,16 @@ function croquet_metaverse_web_showcase_dynamic_render_callback( $block_attribut
 
   // do_action("qm/debug", '$src: ' . $src);
 
-  $uniqueSessionPerVisit = $block_attributes['uniqueSessionPerVisit'];
+  $showcasePrivacy = $block_attributes['showcasePrivacy'];
   
-  if ($uniqueSessionPerVisit) {
+  if ($showcasePrivacy == 'public') {
+    $sessionKey = '?q=' . $sanitizedName . '#pw=1';
+  } else if ($showcasePrivacy == 'invite') {
     $sessionKey = '';
   } else {
-    $sessionKey = '?q=' . $sanitizedName . '#pw=1';
+    // Default to `invite`.
+    // Perhaps we want to log something here, because we should never hit this codepath.
+    $sessionKey = '';
   }
 
   $result = wp_kses('<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . $sessionKey . '"></iframe></div>',
