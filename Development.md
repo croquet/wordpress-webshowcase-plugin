@@ -34,3 +34,8 @@ and
 
    svn ci -m 'version 1.x.y'
 
+## Testing
+
+It is recommended to use local.wp to run WordPress locally. I create a site where the development repo is cloned into the plugins directory. You run `npm start` in the directory and change are reflected immediately.
+
+I create a different site for testing (with different language settings and themes etc., preferably) and install the zip file from the development directory to test the plugin. (Removing and adding them, and also simply updating the plugin for existing blocks.
