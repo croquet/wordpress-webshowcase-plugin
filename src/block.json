@@ -2,7 +2,7 @@
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 2,
     "name": "croquet/webshowcase-block",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "title": "Croquet Metaverse Web Showcase",
     "category": "embed",
     "icon": "admin-site",
