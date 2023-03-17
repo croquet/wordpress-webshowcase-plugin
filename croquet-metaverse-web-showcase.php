@@ -107,7 +107,7 @@ function croquet_metaverse_web_showcase_dynamic_render_callback( $block_attribut
   }
 
   if (!$src) {
-    echo "Error creating an asset";
+    echo "Error creating an asset.<br>";
     return false;
   }
 
@@ -177,13 +177,13 @@ function croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $al
   $file = fopen($tmp_filename, 'w');
 
   if (!$file) {
-    echo "Error creating a temporary file";
+    echo "Error creating a temporary file.<br>";
     return false;
   }
 
   $count = fwrite($file, $all_contents);
   if (!$count) {
-    echo "Error writing into a temporary file";
+    echo "Error writing into a temporary file.<br>";
     return false;
   }
   fclose($file);
@@ -197,9 +197,18 @@ function croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $al
   // do_action("qm/debug", '$post: ' . $post);
 
   if (!$post) {
-    echo "Error getting the current post ID";
+    echo "Error getting the current post ID.<br>";
     return;
   }
+
   $id = media_handle_sideload($file_array, 0, $filename);
+
+  // do_action("qm/debug", 'is error ' . is_wp_error($id));
+
+  if (is_wp_error($id)) {
+    echo "Error media_handle_sideload failed.<br>";
+    return false;
+  }
+
   return wp_get_attachment_url($id);
 }
