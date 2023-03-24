@@ -56,7 +56,7 @@ function croquet_metaverse_web_showcase_dynamic_render_callback( $block_attribut
   $json['title'] = $block_attributes['showcaseName'];
   $json['showcase'] = 'gallery'; // $block_attributes['showcase'];
   $json['voiceChat'] = $block_attributes['voiceChat'];
-    
+
   $decodedCards = json_decode($block_attributes['cardsString'], true);
   $sanitizedName = strtolower(preg_replace("/[^A-Za-z0-9-]+/", "", $block_attributes['showcaseName']));
   $json['cards'] = array();
@@ -100,22 +100,33 @@ function croquet_metaverse_web_showcase_dynamic_render_callback( $block_attribut
 
   $filename = $sanitizedName . '.html';
   $tmp_filename = get_temp_dir() . 'showcase.html.tmp';
+  //do_action("qm/debug", 'temp: ' . $tmp_filename);
+
   $src = croquet_metaverse_web_showcase_delete_if_exists($all_contents, $filename);
 
   // do_action("qm/debug", '$src1: ' . $src);
+
+  $html = null;
+
   if ($src == "not exist") {
     $src = croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $all_contents);
+    if (!$src) {
+      // echo "Croquet Web Showcase: Error creating an asset. Try previewing the page.<br>";
+      return 'Croquet Web Showcase: Error creating an asset.';
+    } else {
+      $html = $src;
+    }
+  } else if ($src == "no permission") {
+     return 'Croquet Web Showcase: no asset exists';
+  } else {
+     $html = $src;
   }
 
-  // do_action("qm/debug", '$src2: ' . $src);
-  if ($src == "no permission") {
-    echo "Croquet Web Showcase: Error creating an asset. Try previewing the page.<br>";
-    return false;
-  }
+  // do_action("qm/debug", '$src2: ' . strval($html));
 
-  $src = parse_url($src, PHP_URL_PATH);
+  $html = parse_url($html, PHP_URL_PATH);
 
-  // do_action("qm/debug", '$src: ' . $src);
+  // do_action("qm/debug", '$html: ' . strval($html));
 
   $showcasePrivacy = $block_attributes['showcasePrivacy'];
   
@@ -129,7 +140,7 @@ function croquet_metaverse_web_showcase_dynamic_render_callback( $block_attribut
     $sessionKey = '';
   }
 
-  $result = wp_kses('<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $src . $sessionKey . '"></iframe></div>',
+  $result = wp_kses('<div class="showcase-container"><iframe width="100%" height=' . $minHeight . ' class="showcase-iframe" src="' . $html . $sessionKey . '"></iframe></div>',
     array(
       'div' => array('class' => array()),
       'iframe' => array('width' => array(), 'height' => array(), 'src' => array())
@@ -159,32 +170,39 @@ function croquet_metaverse_web_showcase_delete_if_exists($contents, $html_name) 
    $prev = croquet_metaverse_web_showcase_get_attachment_by_name($html_name);
    $file = null;
    if ($prev) {
+        //do_action("qm/debug", "prev: " . $prev->guid);
         $file = file_get_contents($prev->guid);
+   } else {
+     do_action("qm/debug", "no previous file");
+     return "not exist";
    }
-   if (!function_exists('get_current_screen')) {
-      // echo "no get_current_screen<br>";
+
+   // do_action("qm/debug", "file: " . strval($file));
+   // do_action("qm/debug", "function_exists: " . function_exists('current_user_can'));
+   // do_action("qm/debug", "id: " . get_the_ID());
+   // do_action("qm/debug", "current_user_can: " . current_user_can('edit_posts'));
+
+   if (!current_user_can('edit_posts')) {
       if ($file) {
          return $prev->guid;
       }
       return "no permission";
    }
 
-   // $post_type = get_current_screen()->post_type;
-   // echo "post type is: " . $post_type . "<br>";
-   // do_action("qm/debug", 'post_type: ' . $post_type);
-
-   $file = file_get_contents($prev->guid);
    // do_action("qm/debug", $file);
    // do_action("qm/debug", $contents);
    // do_action("qm/debug", 'equal: ' . ($file == $contents));
    // echo "$file:" . $file;
    // echo "$contents:" . $contents;
 
+   // do_action("qm/debug", $file . ' ' . $prev->guid);
+
    if ($file && $file == $contents) {return $prev->guid;}
 
    // I want to know how to get the previous content and delete it only if necessary
    $id = $prev->ID;
 
+   // do_action("qm/debug", "delete");
    wp_delete_attachment($id, true);
    return "not exist";
 }
