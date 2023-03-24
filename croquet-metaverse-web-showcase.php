@@ -102,12 +102,14 @@ function croquet_metaverse_web_showcase_dynamic_render_callback( $block_attribut
   $tmp_filename = get_temp_dir() . 'showcase.html.tmp';
   $src = croquet_metaverse_web_showcase_delete_if_exists($all_contents, $filename);
 
-  if (!$src) {
+  // do_action("qm/debug", '$src1: ' . $src);
+  if ($src == "not exist") {
     $src = croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $all_contents);
   }
 
-  if (!$src) {
-    echo "Error creating an asset.<br>";
+  // do_action("qm/debug", '$src2: ' . $src);
+  if ($src == "no permission") {
+    echo "Croquet Web Showcase: Error creating an asset. Try previewing the page.<br>";
     return false;
   }
 
@@ -155,35 +157,49 @@ function croquet_metaverse_web_showcase_get_attachment_by_name($html_name) {
 
 function croquet_metaverse_web_showcase_delete_if_exists($contents, $html_name) {
    $prev = croquet_metaverse_web_showcase_get_attachment_by_name($html_name);
+   $file = null;
    if ($prev) {
-     $file = file_get_contents($prev->guid);
-     /*
-     do_action("qm/debug", $file);
-     do_action("qm/debug", $contents);
-     do_action("qm/debug", 'equal: ' . ($file == $contents));
-     */
-
-     if ($file && $file == $contents) {return $prev->guid;}
-
-     // I want to know how to get the previous content and delete it only if necessary
-     $id = $prev->ID;
-
-     wp_delete_attachment($id, true);
+        $file = file_get_contents($prev->guid);
    }
-   return false;
+   if (!function_exists('get_current_screen')) {
+      // echo "no get_current_screen<br>";
+      if ($file) {
+         return $prev->guid;
+      }
+      return "no permission";
+   }
+
+   // $post_type = get_current_screen()->post_type;
+   // echo "post type is: " . $post_type . "<br>";
+   // do_action("qm/debug", 'post_type: ' . $post_type);
+
+   $file = file_get_contents($prev->guid);
+   // do_action("qm/debug", $file);
+   // do_action("qm/debug", $contents);
+   // do_action("qm/debug", 'equal: ' . ($file == $contents));
+   // echo "$file:" . $file;
+   // echo "$contents:" . $contents;
+
+   if ($file && $file == $contents) {return $prev->guid;}
+
+   // I want to know how to get the previous content and delete it only if necessary
+   $id = $prev->ID;
+
+   wp_delete_attachment($id, true);
+   return "not exist";
 }
 
 function croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $all_contents) {
   $file = fopen($tmp_filename, 'w');
 
   if (!$file) {
-    echo "Error creating a temporary file.<br>";
+    echo "Croquet Web Showcase: Error creating a temporary file.<br>";
     return false;
   }
 
   $count = fwrite($file, $all_contents);
   if (!$count) {
-    echo "Error writing into a temporary file.<br>";
+    echo "Croquet Web Showcase: Error writing into a temporary file.<br>";
     return false;
   }
   fclose($file);
@@ -197,8 +213,8 @@ function croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $al
   // do_action("qm/debug", '$post: ' . $post);
 
   if (!$post) {
-    echo "Error getting the current post ID.<br>";
-    return;
+    echo "Croquet Web Showcase: Error getting the current post ID.<br>";
+    return false;
   }
 
   $id = media_handle_sideload($file_array, 0, $filename);
@@ -206,7 +222,7 @@ function croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $al
   // do_action("qm/debug", 'is error ' . is_wp_error($id));
 
   if (is_wp_error($id)) {
-    echo "Error media_handle_sideload failed.<br>";
+    echo "Croquet Web Showcase: Error media_handle_sideload failed.<br>";
     return false;
   }
 
