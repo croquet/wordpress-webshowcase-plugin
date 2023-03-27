@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Croquet Metaverse Web Showcase
  * Description:       Croquet Metaverse Web Showcase
- * Version:           1.1.7
+ * Version:           1.1.8
  * Requires at least: 5.9
  * Requires PHP:      7.0
  * Author:            The Croquet Corporation
@@ -169,20 +169,23 @@ function croquet_metaverse_web_showcase_get_attachment_by_name($html_name) {
 function croquet_metaverse_web_showcase_delete_if_exists($contents, $html_name) {
    $prev = croquet_metaverse_web_showcase_get_attachment_by_name($html_name);
    $file = null;
+
    if ($prev) {
         //do_action("qm/debug", "prev: " . $prev->guid);
         $file = file_get_contents($prev->guid);
    } else {
-     do_action("qm/debug", "no previous file");
+     // do_action("qm/debug", "no previous file");
      return "not exist";
    }
 
    // do_action("qm/debug", "file: " . strval($file));
    // do_action("qm/debug", "function_exists: " . function_exists('current_user_can'));
    // do_action("qm/debug", "id: " . get_the_ID());
-   // do_action("qm/debug", "current_user_can: " . current_user_can('edit_posts'));
+   // do_action("qm/debug", "post id: " . $post->ID);
+   // do_action("qm/debug", "post parent: " . $post->post_parent);
+   $parent_post = croquet_metaverse_web_showcase_get_post();
 
-   if (!current_user_can('edit_posts')) {
+   if (!$parent_post || current_user_can('edit_post', $parent_post->ID)) {
       if ($file) {
          return $prev->guid;
       }
@@ -205,6 +208,15 @@ function croquet_metaverse_web_showcase_delete_if_exists($contents, $html_name) 
    // do_action("qm/debug", "delete");
    wp_delete_attachment($id, true);
    return "not exist";
+}
+
+function croquet_metaverse_web_showcase_get_post() {
+   global $post;
+   $current = $post;
+   while ($current && $current->post_parent) {
+      $current = get_post($current->post_parent);
+   }
+   return $current;
 }
 
 function croquet_metaverse_web_showcase_create_src($tmp_filename, $filename, $all_contents) {
