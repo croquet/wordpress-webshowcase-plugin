@@ -180,12 +180,14 @@ function croquet_metaverse_web_showcase_delete_if_exists($contents, $html_name) 
 
    // do_action("qm/debug", "file: " . strval($file));
    // do_action("qm/debug", "function_exists: " . function_exists('current_user_can'));
-   // do_action("qm/debug", "id: " . get_the_ID());
-   // do_action("qm/debug", "post id: " . $post->ID);
-   // do_action("qm/debug", "post parent: " . $post->post_parent);
+
    $parent_post = croquet_metaverse_web_showcase_get_post();
 
-   if (!$parent_post || current_user_can('edit_post', $parent_post->ID)) {
+   // do_action("qm/debug", "id: " . get_the_ID());
+   // do_action("qm/debug", "post id: " . $parent_post->ID);
+   // do_action("qm/debug", "post parent: " . $post->post_parent);
+
+   if (!$parent_post || !current_user_can('edit_post', $parent_post->ID)) {
       if ($file) {
          return $prev->guid;
       }
