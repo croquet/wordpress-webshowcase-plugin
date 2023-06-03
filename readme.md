@@ -7,7 +7,7 @@
 | Contributors             | yoshikiohshima,zfox23                       |
 | Tags                     | metaverse, 3d, multiuser                    |
 | WordPress Version Tested | 6.2                                         |
-| Stable Tag               | 1.1.8                                       |
+| Stable Tag               | 1.1.9                                       |
 | Requires PHP             | 7.0                                         |
 | Requires at least        | 5.9                                         |
 | License                  | Apache 2.0                                  |
@@ -96,6 +96,9 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 
 ## Changelog
+
+### 1.1.9
+* display loading spinner. supports High DPI displays.
 
 ### 1.1.8
 * handles an issue on a commercial hosting site.
