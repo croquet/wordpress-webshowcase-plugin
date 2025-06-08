@@ -20,12 +20,12 @@ https://www.youtube.com/watch?v=q0cFApaNEBI
 
 To install the plugin, search for "Croquet Web Showcase" from your WordPress plugin installation page.
 
-You will need a Croquet API Key to use the plugin. You can create a key for free at [croquet.io/keys](https://croquet.io/keys).
-Your API key will look something like this: `15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample`
+You will need a Multisynq API Key to use the plugin. You can create a key for free at [multisynq.io/coder](https://multisynq.io/coder).
+Your API key will look something like this: `25kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample`
 
 While writing a new Post or Page, you can add a Croquet Metaverse Web Showcase block in the block editor, as shown in the first screenshot.
 
-Open the sidebar settings for the Web Showcase block by clicking on the the gear icon at the top right corner of your editing page and clicking on the block. In the sidebar settings, you can paste your Croquet API Key into the API Key text field.
+Open the sidebar settings for the Web Showcase block by clicking on the the gear icon at the top right corner of your editing page and clicking on the block. In the sidebar settings, you can paste your Multisynq API Key into the API Key text field.
 
 By default, a new Web Showcase block contains two default assets. If you preview your Post or Page, you can see a 3D art gallery space with those two images.
 
@@ -48,15 +48,15 @@ Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more informat
 3. Select the downloaded zip file, and activate the installed plugin.
 
 = After activation = 
-1. Visit [https://croquet.io/keys](https://croquet.io/keys) and create a production API Key. These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
+1. Visit [https://multisynq.io/coder](https://multisynq.io/coder) and create a production API Key. These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 
 == Settings ==
 
 There are some sidebar settings associated with the Metaverwe Web Showcase block. If you don't see a sidebar in your editor, click the gear icon in the top right of the editor to open the sidebar.
 
-= Croquet API Key =
+= Multisynq API Key =
 
-This API key is used to access the Croquet Reflector network. You can generate an API Key at [croquet.io/keys](https://croquet.io/keys). Your API key will look something like this: `15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample`
+This API key is used to access the Multisynq Reflector network. You can generate an API Key at [multisynq.io/coder](https://multisynq.io/coder). Your API key will look something like this: `25kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample`
 
 These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 
@@ -81,7 +81,7 @@ This setting specifies the height of the 3D Showcase embedded within the page.
 
 = How much does it cost? =
 
-Web Showcase is free. You can obtain a Croquet API Key for free from [https://croquet.io/keys](https://croquet.io/keys) and paste it into the sidebar settings panel after selecting the Web Showcase WordPress block.
+Web Showcase is free. You can obtain a Multisynq API Key for free from [https://multisynq.io/coder](https://multisynq.io/coder) and paste it into the sidebar settings panel after selecting the Web Showcase WordPress block.
 
 = What does the WordPress plugin do? =
 

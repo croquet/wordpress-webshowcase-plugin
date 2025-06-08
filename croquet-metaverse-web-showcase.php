@@ -8,7 +8,7 @@
  * Author:            The Croquet Corporation
  * Plugin URI:        https://croquet.io/webshowcase
  * Description:       Croquet Metaverse Web Showcase
- * Author URI:        https://croquet.io/
+ * Author URI:        https://multisynq.io/
  * License:           Apache-2.0
  * License URI:       https://www.apache.org/licenses/LICENSE-2.0
  * Text Domain:       croquet-metaverse-web-showcase

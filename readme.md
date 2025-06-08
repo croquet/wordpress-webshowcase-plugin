@@ -22,7 +22,7 @@ See the plugin in action in this video:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/q0cFApaNEBI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Installation is easy. Search for "Croquet Web Showcase" from the plugin installation page.
-After installing the plugin, make sure that you have the Croquet API Key for your site. You can create a key for free on https://croquet.io/keys. A key looks like 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample.
+After installing the plugin, make sure that you have the Multisynq API Key for your site. You can create a key for free on https://multisynq.io/coder. A key looks like 25kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample.
 
 Then create the Croquet Metaverse Web Showcase Block in the Block editor. That looks like the first screenshot. Open the sidebar settings for the block by clicking on the the gear icon at the top right corner on the editing page and clicking on the block. You paste the Croquet API into the API Key settings and you are good to go.
 
@@ -39,16 +39,16 @@ Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more informat
 
 ### Privacy and Security
 
-* To use this plugin, you must obtain an API key from [https://croquet.io/keys](https://croquet.io/keys).
+* To use this plugin, you must obtain an API key from [https://multisynq.io/coder](https://multisynq.io/coder).
     * These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
-* Croquet's website uses cookies as per our [Privacy Policy](https://croquet.io/privacy.html).
-* Croquet Corporation does not track users.
-* Croquet Corporation does not store or control the assets used in a Web Showcase.
+* Multisynq's website uses cookies as per our [Privacy Policy](https://multisynq.io/privacy.html).
+* Multisynq Corporation does not track users.
+* Multisynq Corporation does not store or control the assets used in a Web Showcase.
 * Users in the same session can see the avatars controlled by other users.
 * Users in the same session may join a spatialized voice chat to talk.
 
 ### Usage
-1. Visit [croquet.io/keys](https://croquet.io/keys) and create a production API Key.
+1. Visit [multisynq.io/coder](https://multisynq.io/coder) and create a production API Key.
     * These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 2. Instantiate a Croquet Metaverse Web Showcase block in the WordPress block editor
 3. Paste the API key into the sidebar settings.
@@ -57,9 +57,9 @@ Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more informat
 
 ## Settings
 
-### Croquet API Key
+### Multisynq API Key
 
-The key is used to access the Croquet Reflector network. You can generate an API Key, which is a string looks like 15kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample on https://croquet.io/keys.
+The key is used to access the Multisynq network. You can generate an API Key, which is a string looks like 25kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample on https://multisynq.io/coder.
 
 ### Showcase Privacy
 
@@ -88,7 +88,7 @@ When true, and if the WordPress is hosted on a secure HTTP connection, the voice
 
 ### How much does Web Showcase cost?
 
-Web Showcase is free. You can obtain the Croquet API Key for free from [https://croquet.io/keys](https://croquet.io/keys) and paste it into the sidebar settings panel after selecting the Web Showcase WordPress block.
+Web Showcase is free. You can obtain the Multisynq API Key for free from [https://multisynq.io/coder](https://multisynq.io/coder) and paste it into the sidebar settings panel after selecting the Web Showcase WordPress block.
 
 ### What does the WordPress plugin do?
 

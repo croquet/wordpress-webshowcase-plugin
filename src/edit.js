@@ -241,7 +241,7 @@ export default function Edit({ attributes, setAttributes }) {
         apiKeyMessage = __("Please set API key in the side bar settings", "croquet-metaverse-web-showcase");
         apiKeyMessageColor = "red";
     } else if (!apiKeyCorrect) {
-        apiKeyMessage = __("The API Key is not in the right format. It should look like: 1abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
+        apiKeyMessage = __("The API Key is not in the right format. It should look like: 2abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
         apiKeyMessageColor = "red";
     } else {
         apiKeyMessage =  __("API Key", "croquet-metaverse-web-showcase") + ": " + apiKey;
@@ -277,7 +277,7 @@ export default function Edit({ attributes, setAttributes }) {
         stack.push(notice);
     }
 
-    let apiKeyHelp = __("A key to access the Croquet network. You can generate one on https://multisynq.io/keys. Paste the key string that looks like: 2abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
+    let apiKeyHelp = __("A key to access the Multisynq network. You can generate one on https://multisynq.io/coder. Paste the key string that looks like: 2abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
 
     let showcasePrivacyHelp = __("Determines the privacy of this Web Showcase instantiation", "croquet-metaverse-web-showcase");
 
@@ -301,7 +301,7 @@ export default function Edit({ attributes, setAttributes }) {
             <InspectorControls>
                 <PanelBody title={__("Settings", "croquet-metaverse-web-showcase")}>
                     <TextControl
-                        label={__("Croquet API Key", "croquet-metaverse-web-showcase")}
+                        label={__("Multisynq API Key", "croquet-metaverse-web-showcase")}
                         value={apiKey}
                         help={apiKeyHelp}
                         onChange={updateApiKey}/>
