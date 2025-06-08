@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Croquet Metaverse Web Showcase
  * Description:       Croquet Metaverse Web Showcase
- * Version:           1.1.12
+ * Version:           1.9.0
  * Requires at least: 5.9
  * Requires PHP:      7.0
  * Author:            The Croquet Corporation
@@ -81,7 +81,7 @@ function croquet_metaverse_web_showcase_dynamic_render_callback( $block_attribut
 ';
 
   // $contents2 = 'import {load} from ' . '"' . plugins_url('includes/v1.js', __FILE__) . '";';
-  $contents2 = 'import {load} from "https://croquet.io/webshowcase/v1.js"';
+  $contents2 = 'import {load} from "https://croquet.io/dev/webshowcase/v1.js"';
 
   // do_action("qm/debug", '$contents2: ' . $contents2);
 

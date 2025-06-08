@@ -106,12 +106,7 @@ export default function Edit({ attributes, setAttributes }) {
     }, [uniqueSessionPerVisit]);
 
     useEffect(() => {
-        let correct;
-        if (apiKey.length === 41) {
-            correct = /^[0-9a-zA-Z]+$/.test(apiKey);
-        } else {
-            correct = /^[0-9]_[0-9a-zA-Z]+$/.test(apiKey);
-        }
+        let correct = /^[0-9][-_a-zA-Z0-9]+$/.test(apiKey);
         setApiKeyCorrect(correct);
     }, [apiKey]);
 
@@ -282,7 +277,7 @@ export default function Edit({ attributes, setAttributes }) {
         stack.push(notice);
     }
 
-    let apiKeyHelp = __("A key to access the Croquet network. You can generate one on https://croquet.io/keys. Paste the key string that looks like: 1abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
+    let apiKeyHelp = __("A key to access the Croquet network. You can generate one on https://multisynq.io/keys. Paste the key string that looks like: 2abcdefg123456890ABCDEFG", "croquet-metaverse-web-showcase");
 
     let showcasePrivacyHelp = __("Determines the privacy of this Web Showcase instantiation", "croquet-metaverse-web-showcase");
 
