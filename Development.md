@@ -32,7 +32,7 @@ Then, check things with
 
 and
 
-   svn ci -m 'version 1.x.y'
+   svn ci -m 'version 2.x.y'
 
 ## Testing
 

@@ -3,7 +3,7 @@ Contributors:      yoshikiohshima,zfox23
 Tags:              metaverse, 3d, multiuser
 Tested up to:      6.8.1
 Requires at least: 5.9
-Stable tag:        2.0.0
+Stable tag:        2.0.1
 Requires PHP:      7.0
 License:           Apache 2.0
 License URI:       https://www.apache.org/licenses/LICENSE-2.0
@@ -21,7 +21,7 @@ https://www.youtube.com/watch?v=q0cFApaNEBI
 To install the plugin, search for "Croquet Web Showcase" from your WordPress plugin installation page.
 
 You will need a Multisynq API Key to use the plugin. You can create a key for free at [multisynq.io/coder](https://multisynq.io/coder).
-Your API key will look something like this: `25kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample`
+Your API key will look something like this: `25kkttz5HqJ4mDycjupJA5eiF2CMhdvIgexample` If you already have an installation with an earlier version, you have to update the API Key.
 
 While writing a new Post or Page, you can add a Croquet Metaverse Web Showcase block in the block editor, as shown in the first screenshot.
 
