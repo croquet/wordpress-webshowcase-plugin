@@ -32,6 +32,8 @@ When this works, go back to the editing page, and remove the default contents by
 
 Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more information about Web Showcase.
 
+Note that the Croquet Metaverse Web Showcase used the Croquet network, but it has migrated to the Multisynq network. Users now obtain the API key from Multisynq to use it.
+
 ### Features
 
 * Low-latency, real-time virtual collaboration embedded within a WordPress post or page.
@@ -42,8 +44,8 @@ Visit [croquet.io/webshowcase](https://croquet.io/webshowcase) for more informat
 * To use this plugin, you must obtain an API key from [https://multisynq.io/coder](https://multisynq.io/coder).
     * These API keys are public and **not secret**. Usage of the API key can be restricted to a set of URLs.
 * Multisynq's website uses cookies as per our [Privacy Policy](https://multisynq.io/privacy.html).
-* Multisynq Corporation does not track users.
-* Multisynq Corporation does not store or control the assets used in a Web Showcase.
+* Multisynq does not track users.
+* Multisynq does not store or control the assets used in a Web Showcase.
 * Users in the same session can see the avatars controlled by other users.
 * Users in the same session may join a spatialized voice chat to talk.
 
@@ -96,6 +98,9 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 
 ## Changelog
+
+### = 2.0.0
+* Use updated Croquet library that uses Multisynq network.
 
 ### 1.1.12
 * Update Libraries.

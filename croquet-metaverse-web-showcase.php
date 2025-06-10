@@ -5,10 +5,10 @@
  * Version:           1.9.0
  * Requires at least: 5.9
  * Requires PHP:      7.0
- * Author:            The Croquet Corporation
+ * Author:            Croquet Labs, Inc
  * Plugin URI:        https://croquet.io/webshowcase
  * Description:       Croquet Metaverse Web Showcase
- * Author URI:        https://multisynq.io/
+ * Author URI:        https://croquet.io/
  * License:           Apache-2.0
  * License URI:       https://www.apache.org/licenses/LICENSE-2.0
  * Text Domain:       croquet-metaverse-web-showcase

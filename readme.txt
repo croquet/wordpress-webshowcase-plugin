@@ -95,6 +95,9 @@ The WordPress plugin allows you to interactively specify what assets to use for 
 
 == Changelog ==
 
+= 2.0.0 =
+* Use updated Croquet library that uses Multisynq network.
+
 = 1.1.12 =
 * Update libraries.
 
