@@ -1,7 +1,7 @@
 === Croquet Metaverse Web Showcase ===
 Contributors:      yoshikiohshima,zfox23
 Tags:              metaverse, 3d, multiuser
-Tested up to:      6.7
+Tested up to:      6.8.1
 Requires at least: 5.9
 Stable tag:        1.1.12
 Requires PHP:      7.0
